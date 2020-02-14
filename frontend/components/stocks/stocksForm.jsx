@@ -17,13 +17,14 @@ class StocksForm extends React.Component {
 
 
     render() {
-  
         return (
 
             <div className='stocks-body'>
                 <div className='stocks-left'>
                 <button className='logout-button' onClick={this.handleSubmit} type='submit'>Sign Out {this.props.user.email}</button>
                 <p>Hi {this.props.user.name}</p>
+                <br/>
+                <p>You Have {this.props.user.money}</p>
                 </div>
                 <div className = 'stocks-right'>
 

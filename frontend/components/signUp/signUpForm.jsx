@@ -55,7 +55,7 @@ class SignUpForm extends React.Component {
                 <div className='sign-up-form'>
 
                     <div className="sign-up-top">
-                        <h1 className='log-in-stockbuyer'>StockBuyer</h1>
+                        <h1 className='log-in-stockbuyer'>Register</h1>
                     </div>
 
                     <div className="sign-up-middle">

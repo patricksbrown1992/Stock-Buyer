@@ -3,8 +3,7 @@ class Api::UsersController < ApplicationController
     def create
     
         @user = User.new(user_params)
-
-    
+        @user.money = 5000
         if @user.save
             login!(@user)
             render "api/users/show"
@@ -37,7 +36,7 @@ class Api::UsersController < ApplicationController
 
     def user_params
       
-        params.require(:user).permit(:email, :password, :name)
+        params.require(:user).permit(:email, :password, :name, :money)
     end
 
 end
