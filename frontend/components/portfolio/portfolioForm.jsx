@@ -42,7 +42,7 @@ class PortfolioForm extends React.Component {
         let quant = parseInt(this.state.qty);
         transaction['buy'] = true;
         let user = this.props.user;
-        user.money = user.money -= (amt * quant);
+        user.money = (user.money -= amt * quant).toFixed(2);
         // debugger
         this.props.createTransaction(transaction).then(() => this.setState({ticker: '', qty: 0}), this.props.updateUser(user))
     }
