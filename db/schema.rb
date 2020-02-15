@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 2020_02_15_001505) do
     t.float "market_cap", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_companies_on_name"
-    t.index ["ticker"], name: "index_companies_on_ticker"
+    t.index ["name"], name: "index_companies_on_name", unique: true
+    t.index ["ticker"], name: "index_companies_on_ticker", unique: true
   end
 
   create_table "transactions", force: :cascade do |t|

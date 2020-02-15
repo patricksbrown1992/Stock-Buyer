@@ -5,25 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-company1 = Company.create(
-    ticker: "GOOG",
-    name: "Alphabet, Inc.",
-    market_cap: 1,518.73,
-    avg_volume: 1423891
-)
-
+Company.destroy_all
+company1 = Company.create(ticker: "GOOG", avg_volume: 1423891, name: "Alphabet, Inc.", market_cap: 1518.73) 
 company2 = Company.create(
-        ticker: "VZ",
-        name: "Verizon Communications, Inc.",
-        market_cap: 58.55,
-        avg_volume: 9156287
+      ticker: "VZ", name: "Verizon Communications, Inc.", market_cap: 58.55, avg_volume: 9156287  
 )
-
 company3 = Company.create(
     ticker: "AAPL",
     name: "Apple, Inc.",
-    ceo: "Timothy Donald Cook",
     market_cap: 324.95,
     avg_volume: 20985371
 )
