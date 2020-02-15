@@ -30,8 +30,8 @@ class PortfolioForm extends React.Component {
     }
     handleClick(e){
         e.preventDefault();
-
-        if(!Number.isInteger(parseInt(this.state.qty)) || parseInt(this.state.qty < 1 )){
+        debugger
+        if(!Number.isInteger(parseInt(this.state.qty)) || this.state.qty.includes('.')|| parseInt(this.state.qty < 1 )){
             return this.props.portfolioBuy()
         } else if(!this.props.companies[this.state.ticker]){
             return this.props.portfolioTicker()
