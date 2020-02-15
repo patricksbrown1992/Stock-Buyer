@@ -5,7 +5,7 @@ export const RECEIVE_TRANSACTION = 'RECEIVE_TRANSACTION';
 export const CLEAR_TRANSACTION = 'CLEAR_TRANSACTION';
 
 const receiveTransaction = transaction => {
-    debugger
+    // debugger
     return {
         type: RECEIVE_TRANSACTION,
         transaction
