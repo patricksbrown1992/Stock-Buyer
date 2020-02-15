@@ -6,13 +6,33 @@ const transactionReducer = (state={}, action) => {
 
     switch (action.type){
         case RECEIVE_TRANSACTION:
-            return merge({}, state, { [action.transaction.id]: action.transaction });
+            if(state[action.transaction.company_ticker]){
+                debugger
+                let before = state[action.transaction.company_ticker]
+                let now = before.net_shares += action.transaction.net_shares;
+                action.transaction.net_shares = now;
+                // debugger
+                return merge({}, state, { [action.transaction.company_ticker]: action.transaction });
+            } else {
+                debugger
+                return merge({}, state, { [action.transaction.company_ticker]: action.transaction });
+
+            }
         case RECEIVE_TRANSACTIONS:
             const transactions = {};
-            action.transactions.forEach((transaction) => {
-                transactions[transaction.id] = transaction;
-            });
 
+            action.transactions.forEach((transaction) => {
+                if(transactions[transaction.company_ticker]){
+                    debugger
+                    let curr = transactions[transaction.company_ticker]
+                    let now = curr.net_shares += transaction.net_shares;
+                    transaction.net_shares = now;
+                    transactions[transaction.company_ticker] = transaction
+                } else {
+                    transactions[transaction.company_ticker] = transaction;
+                }
+            });
+            debugger
             return merge({}, state, transactions);
         default: return state;
     }

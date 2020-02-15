@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 
+
 class PortfolioForm extends React.Component {
     constructor(props) {
         super(props);
@@ -34,7 +35,7 @@ class PortfolioForm extends React.Component {
         } else {
             
             transactions = this.props.transactions.map( transaction => {
-            
+                // debugger
                 return (
                     <li key={transaction.id}>
                         <div>Buy ({transaction.company_ticker}) - {transaction.net_shares} @ {transaction.purchase_price}</div>

@@ -5,6 +5,7 @@ export const RECEIVE_TRANSACTION = 'RECEIVE_TRANSACTION';
 export const CLEAR_TRANSACTION = 'CLEAR_TRANSACTION';
 
 const receiveTransaction = transaction => {
+    debugger
     return {
         type: RECEIVE_TRANSACTION,
         transaction
@@ -33,6 +34,7 @@ export const getTransactions = (user) => dispatch => {
 }
 
 export const createTransaction = transaction => dispatch => {
+    // debugger
     return APITransactionsUtil.createTransaction(transaction)
         .then( 
             transaction => dispatch(receiveTransaction(transaction)))
