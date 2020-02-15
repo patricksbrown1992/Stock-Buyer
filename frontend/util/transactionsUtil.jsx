@@ -1,5 +1,5 @@
 export const getTransactions = (user) => {
-    // debugger
+    
     return $.ajax({
         method: "GET",
         url: "api/transactions",
@@ -10,7 +10,7 @@ export const getTransactions = (user) => {
 }
 
 export const createTransaction = transaction => {
-    // debugger
+    
     return $.ajax({
         method: "POST",
         url: "api/transactions",

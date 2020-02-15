@@ -17,6 +17,17 @@ export const portfolioBuy = () => {
         modal: 'portfolio-buy'
     };
 };
+
+export const portfolioTicker = () => {
+
+    return {
+        type: OPEN_MODAL,
+
+        modal: 'portfolio-ticker'
+    };
+};
+
+
 export const closeModal = () => ({
     type: CLOSE_MODAL
 });

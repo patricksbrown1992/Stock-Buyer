@@ -12,7 +12,7 @@ class PortfolioForm extends React.Component {
     }
 
     componentDidMount(){
-        // debugger
+
         this.props.getTransactions(this.props.user).then(() => this.props.getCompanies()).then(() => this.setState({loaded: true}))
         
     }
@@ -30,14 +30,14 @@ class PortfolioForm extends React.Component {
     }
     handleClick(e){
         e.preventDefault();
-        debugger
+
         if(!Number.isInteger(parseInt(this.state.qty)) || parseInt(this.state.qty < 1 )){
             return this.props.portfolioBuy()
         } else if(!this.props.companies[this.state.ticker]){
-            // return this.props.portfolioBuy()
+            return this.props.portfolioTicker()
         }else {
             let transaction = {};
-            // debugger
+ 
             transaction['user_id'] = this.props.user.id;
             transaction['company_ticker'] = this.state.ticker;
             let amt = this.props.companies[this.state.ticker].market_cap
@@ -49,7 +49,7 @@ class PortfolioForm extends React.Component {
             transaction['buy'] = true;
             let user = this.props.user;
             user.money = (user.money -= amt * quant).toFixed(2);
-            // debugger
+ 
             this.props.createTransaction(transaction).then(() => this.setState({ticker: '', qty: 0}), this.props.updateUser(user))
         }
     }
@@ -62,7 +62,7 @@ class PortfolioForm extends React.Component {
         if(!this.state.loaded){
             return null;
         }
-        // debugger
+   
         if(Object.values(this.props.companies).length < 1){
             companies = '';
         } else {
@@ -81,7 +81,7 @@ class PortfolioForm extends React.Component {
         } else {
             
             transactions = this.props.transactions.map( transaction => {
-                // debugger
+     
 
                 return (
                     <li key={transaction.id}>
@@ -92,7 +92,7 @@ class PortfolioForm extends React.Component {
         }
         
 
-        // debugger
+   
         return (
 
             <div className='portfolio-page'>

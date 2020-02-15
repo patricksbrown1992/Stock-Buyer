@@ -7,7 +7,7 @@ import {getTransactions} from '../../actions/transactionActions';
 
 
 const msp = state => {
-    // debugger
+ 
     return {
     errors: state.errors,
     user: state.entities.user[state.session.id], 

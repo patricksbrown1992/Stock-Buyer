@@ -18,7 +18,7 @@ class SignUpForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // debugger
+ 
         if (e.currentTarget.children[0].classList[0] == 'enter-username') {
 
             this.props.signup(this.state);

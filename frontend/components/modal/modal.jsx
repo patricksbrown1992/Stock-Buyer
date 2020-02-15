@@ -1,7 +1,8 @@
 import React from 'react';
 import { closeModal } from '../../actions/modalActions';
 import { connect } from 'react-redux';
-import PortfolioBuyContainer from '../portfolio/portfolioBuyContainer'
+import PortfolioBuy from '../portfolio/portfolioBuyContainer'
+import PortfolioTicker from '../portfolio/portfolioTickerContainer';
 
 
 function Modal({ modal, closeModal }) {
@@ -12,8 +13,11 @@ function Modal({ modal, closeModal }) {
     let component;
     switch (modal.type) {
         case 'portfolio-buy':
-            component = <PortfolioBuyContainer />;
+            component = <PortfolioBuy />;
             break;
+        case 'portfolio-ticker':
+            component = <PortfolioTicker />
+            break
         default:
             return null;
     }

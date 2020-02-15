@@ -3,13 +3,13 @@ import PortfolioForm from './portfolioForm';
 import { clearErrors, logout, } from '../../actions/sessionActions';
 import { getCompanies } from '../../actions/companyActions';
 import {getTransactions,createTransaction} from '../../actions/transactionActions';
-import {portfolioBuy} from '../../actions/modalActions';
+import {portfolioBuy, portfolioTicker} from '../../actions/modalActions';
 
 
 
 
 const msp = state => {
-    // debugger
+
     return {
     errors: state.errors,
     user: state.entities.user[state.session.id], 
@@ -25,7 +25,8 @@ const mdp = dispatch => ({
     getCompanies: () => dispatch(getCompanies()),
     getTransactions: user => dispatch(getTransactions(user)),
     createTransaction: transaction => dispatch(createTransaction(transaction)),
-    portfolioBuy: () => dispatch(portfolioBuy())
+    portfolioBuy: () => dispatch(portfolioBuy()),
+    portfolioTicker: () => dispatch(portfolioTicker())
 
  
 });
