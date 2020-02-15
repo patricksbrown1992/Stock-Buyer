@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import PortfolioForm from './portfolioForm';
-import { clearErrors, logout, } from '../../actions/sessionActions';
+import { clearErrors, logout, updateUser } from '../../actions/sessionActions';
 import { getCompanies } from '../../actions/companyActions';
 import {getTransactions,createTransaction} from '../../actions/transactionActions';
 import {portfolioBuy, portfolioTicker, portfolioMoney} from '../../actions/modalActions';
@@ -27,7 +27,9 @@ const mdp = dispatch => ({
     createTransaction: transaction => dispatch(createTransaction(transaction)),
     portfolioBuy: () => dispatch(portfolioBuy()),
     portfolioTicker: () => dispatch(portfolioTicker()),
-    portfolioMoney: () => dispatch(portfolioMoney())
+    portfolioMoney: () => dispatch(portfolioMoney()),
+    updateUser: user => dispatch(updateUser(user))
+
 
  
 });

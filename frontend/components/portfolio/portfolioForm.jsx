@@ -30,32 +30,33 @@ class PortfolioForm extends React.Component {
     }
     handleClick(e){
         e.preventDefault();
-        // debugger
-        let amt = this.props.companies[this.state.ticker].market_cap;
+
+        let ticker = this.state.ticker;
+        let amt = this.props.companies[ticker].market_cap;
         let quant = parseInt(this.state.qty);
         let user = this.props.user;
-        if(!Number.isInteger(parseInt(this.state.qty)) || this.state.qty.includes('.')|| parseInt(this.state.qty < 1 )){
+        if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
             return this.props.portfolioBuy();
-        } else if(!this.props.companies[this.state.ticker]){
+        } else if(!this.props.companies[ticker]){
             return this.props.portfolioTicker();
         } else if (user.money < (amt * quant).toFixed(2)){
-            // debugger
+    
             return this.props.portfolioMoney();
         } else {
             let transaction = {};
  
-            transaction['user_id'] = this.props.user.id;
-            transaction['company_ticker'] = this.state.ticker;
+            transaction['user_id'] = user.id;
+            transaction['company_ticker'] = ticker;
             
-            transaction['purchase_price'] = this.props.companies[this.state.ticker].market_cap;
-            transaction['purchase_shares'] = parseInt(this.state.qty);
-            transaction['average_price'] = this.props.companies[this.state.ticker].market_cap;
-            transaction['net_shares'] = parseInt(this.state.qty);
+            transaction['purchase_price'] = amt;
+            transaction['purchase_shares'] = quant;
+            transaction['average_price'] = amt;
+            transaction['net_shares'] = quant;
             transaction['buy'] = true;
             
             user.money = (user.money -= amt * quant).toFixed(2);
  
-            this.props.createTransaction(transaction).then(() => this.setState({ticker: '', qty: 0}), this.props.updateUser(user))
+            this.props.createTransaction(transaction).then(() => this.setState({qty: 0, ticker:''}), this.props.updateUser(user))
         }
     }
 
