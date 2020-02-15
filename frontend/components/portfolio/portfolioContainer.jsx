@@ -3,7 +3,7 @@ import PortfolioForm from './portfolioForm';
 import { clearErrors, logout, } from '../../actions/sessionActions';
 import { getCompanies } from '../../actions/companyActions';
 import {getTransactions,createTransaction} from '../../actions/transactionActions';
-import {portfolioBuy, portfolioTicker} from '../../actions/modalActions';
+import {portfolioBuy, portfolioTicker, portfolioMoney} from '../../actions/modalActions';
 
 
 
@@ -26,7 +26,8 @@ const mdp = dispatch => ({
     getTransactions: user => dispatch(getTransactions(user)),
     createTransaction: transaction => dispatch(createTransaction(transaction)),
     portfolioBuy: () => dispatch(portfolioBuy()),
-    portfolioTicker: () => dispatch(portfolioTicker())
+    portfolioTicker: () => dispatch(portfolioTicker()),
+    portfolioMoney: () => dispatch(portfolioMoney())
 
  
 });

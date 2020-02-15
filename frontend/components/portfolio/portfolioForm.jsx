@@ -30,24 +30,29 @@ class PortfolioForm extends React.Component {
     }
     handleClick(e){
         e.preventDefault();
-        debugger
+        // debugger
+        let amt = this.props.companies[this.state.ticker].market_cap;
+        let quant = parseInt(this.state.qty);
+        let user = this.props.user;
         if(!Number.isInteger(parseInt(this.state.qty)) || this.state.qty.includes('.')|| parseInt(this.state.qty < 1 )){
-            return this.props.portfolioBuy()
+            return this.props.portfolioBuy();
         } else if(!this.props.companies[this.state.ticker]){
-            return this.props.portfolioTicker()
-        }else {
+            return this.props.portfolioTicker();
+        } else if (user.money < (amt * quant).toFixed(2)){
+            // debugger
+            return this.props.portfolioMoney();
+        } else {
             let transaction = {};
  
             transaction['user_id'] = this.props.user.id;
             transaction['company_ticker'] = this.state.ticker;
-            let amt = this.props.companies[this.state.ticker].market_cap
+            
             transaction['purchase_price'] = this.props.companies[this.state.ticker].market_cap;
             transaction['purchase_shares'] = parseInt(this.state.qty);
             transaction['average_price'] = this.props.companies[this.state.ticker].market_cap;
             transaction['net_shares'] = parseInt(this.state.qty);
-            let quant = parseInt(this.state.qty);
             transaction['buy'] = true;
-            let user = this.props.user;
+            
             user.money = (user.money -= amt * quant).toFixed(2);
  
             this.props.createTransaction(transaction).then(() => this.setState({ticker: '', qty: 0}), this.props.updateUser(user))

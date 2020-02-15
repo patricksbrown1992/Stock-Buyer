@@ -28,6 +28,16 @@ export const portfolioTicker = () => {
 };
 
 
+export const portfolioMoney = () => {
+
+    return {
+        type: OPEN_MODAL,
+
+        modal: 'portfolio-money'
+    };
+};
+
+
 export const closeModal = () => ({
     type: CLOSE_MODAL
 });
