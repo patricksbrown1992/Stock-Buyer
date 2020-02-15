@@ -8,7 +8,13 @@ const companyReducer = (state={}, action) => {
         case RECEIVE_COMPANY:
             return merge( {}, state, {[action.company.id]: action.company})
         case RECEIVE_COMPANIES:
-            return merge( {}, state, action.companies)
+            const companies = {};
+            action.companies.forEach((company) => {
+                companies[company.id] = company;
+            });
+
+            return merge({}, state, companies);
+    
         default: return state;
     }
 };

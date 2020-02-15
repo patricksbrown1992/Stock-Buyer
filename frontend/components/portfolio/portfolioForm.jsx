@@ -11,8 +11,9 @@ class PortfolioForm extends React.Component {
     }
 
     componentDidMount(){
-         this.props.getCompanies().then(() => this.setState({loaded: true}))
-       
+        debugger
+        this.props.getTransactions(this.props.user).then(() => this.props.getCompanies()).then(() => this.setState({loaded: true}))
+        
     }
 
 
@@ -31,21 +32,36 @@ class PortfolioForm extends React.Component {
 
     render() {
         let companies;
+        let transactions;
         if(!this.state.loaded){
             return null;
         }
         // debugger
-        if(this.props.companies.length < 1){
+        if(Object.values(this.props.companies).length < 1){
             companies = '';
         } else {
             
-            companies = this.props.companies.map( company => {
+            companies = Object.values(this.props.companies).map( company => {
                 return (
                     <li key={company.id}>
                         <div>{company.name}</div>
                     </li>
                 )
             })
+        }
+
+        if(this.props.transactions.length < 1){
+            transactions = '';
+        } else {
+            
+            transactions = this.props.transactions.map( transaction => {
+                debugger
+                return (
+                    <li key={transaction.id}>
+                        <div>{this.props.companies[transaction.company_id].name}</div>
+                    </li>
+                )
+            }, this)
         }
         
 
@@ -62,6 +78,10 @@ class PortfolioForm extends React.Component {
                     <div className='portfolio-left'>
                         <p>Hi {this.props.user.name}</p>
                         <p>Portfolio</p>
+                        <ul>
+
+                            {transactions}
+                        </ul>
                         
                     </div>
                     <div className = 'portfolio-right'>
