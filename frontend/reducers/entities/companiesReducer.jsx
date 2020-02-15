@@ -10,7 +10,7 @@ const companyReducer = (state={}, action) => {
         case RECEIVE_COMPANIES:
             const companies = {};
             action.companies.forEach((company) => {
-                companies[company.id] = company;
+                companies[company.ticker] = company;
             });
 
             return merge({}, state, companies);

@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_001505) do
 
   create_table "transactions", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "company_id", null: false
+    t.string "company_ticker", null: false
     t.float "purchase_price", null: false
     t.integer "purchase_shares", null: false
     t.float "average_price", null: false

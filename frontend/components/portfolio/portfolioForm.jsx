@@ -8,10 +8,11 @@ class PortfolioForm extends React.Component {
         this.state = {loaded: false, ticker: '', qty: 0}
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount(){
-        debugger
+        // debugger
         this.props.getTransactions(this.props.user).then(() => this.props.getCompanies()).then(() => this.setState({loaded: true}))
         
     }
@@ -26,6 +27,19 @@ class PortfolioForm extends React.Component {
         return (e) => {
             this.setState({ [field]: e.target.value });
         };
+    }
+    handleClick(e){
+        e.preventDefault();
+        let transaction = {};
+        // debugger
+        transaction['user_id'] = this.props.user.id;
+        transaction['company_ticker'] = this.state.ticker;
+        transaction['purchase_price'] = this.props.companies[this.state.ticker].market_cap;
+        transaction['purchase_shares'] = parseInt(this.state.qty);
+        transaction['average_price'] = this.props.companies[this.state.ticker].market_cap;
+        transaction['net_shares'] = parseInt(this.state.qty);
+        // debugger
+        this.props.createTransaction(transaction)
     }
 
 
@@ -55,10 +69,11 @@ class PortfolioForm extends React.Component {
         } else {
             
             transactions = this.props.transactions.map( transaction => {
-                debugger
+                // debugger
+
                 return (
                     <li key={transaction.id}>
-                        <div>{this.props.companies[transaction.company_id].name}</div>
+                        <div>{transaction.company_ticker} - {transaction.net_shares} shares ${transaction.purchase_price}</div>
                     </li>
                 )
             }, this)
@@ -88,6 +103,7 @@ class PortfolioForm extends React.Component {
                         <p>Cash - ${this.props.user.money}</p>
                         <input  placeholder='Ticker' type="text" value={this.state.ticker} onChange={this.handleChange('ticker')}/>
                         <input type="text" placeholder='Qty' value={this.state.qty} onChange={this.handleChange('qty')} />
+                        <button onClick={this.handleClick}>Buy</button>
                         <ul>
                             {companies}
                         </ul>

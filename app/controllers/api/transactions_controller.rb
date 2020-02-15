@@ -2,8 +2,11 @@ class Api::TransactionsController < ApplicationController
     def create
         @transaction = Transaction.new(transaction_params)
         @transaction.user_id = current_user.id
+        # debugger
         if @transaction.save
-            render @transaction, status: 200
+            # current_user.update(money: money -= @transaction.purchase_price * @transaction.net_shares)
+            # current_user.money -= @transaction.purchase_price * @transaction.net_shares
+            render json: @transaction, status: 200
         else
             render json: @transaction.errors.full_messages, status: 422
         end
@@ -18,6 +21,6 @@ class Api::TransactionsController < ApplicationController
 
     private
     def transaction_params
-        params.require(:transaction).permit(:company_id, :purchase_price, :purchase_shares, :average_price, :net_shares)
+        params.require(:transaction).permit(:company_ticker, :purchase_price, :purchase_shares, :average_price, :net_shares)
     end
 end

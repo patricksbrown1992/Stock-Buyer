@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import PortfolioForm from './portfolioForm';
 import { clearErrors, logout, } from '../../actions/sessionActions';
 import { getCompanies } from '../../actions/companyActions';
-import {getTransactions} from '../../actions/transactionActions';
+import {getTransactions,createTransaction} from '../../actions/transactionActions';
+
 
 
 
@@ -21,7 +22,9 @@ const mdp = dispatch => ({
     clearErrors: (user) => dispatch(clearErrors(user)),
     logout: () => dispatch(logout()),
     getCompanies: () => dispatch(getCompanies()),
-    getTransactions: user => dispatch(getTransactions(user))
+    getTransactions: user => dispatch(getTransactions(user)),
+    createTransaction: transaction => dispatch(createTransaction(transaction))
+
  
 });
 

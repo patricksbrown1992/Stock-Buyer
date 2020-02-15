@@ -4,5 +4,8 @@ class Transaction < ApplicationRecord
     validates :net_shares, :average_price, numericality: { greater_than_or_equal_to: 0 }
 
     belongs_to :user
-    belongs_to :company
+    belongs_to :company,
+        primary_key: :ticker,
+        foreign_key: :company_ticker,
+        class_name: :Company
 end
