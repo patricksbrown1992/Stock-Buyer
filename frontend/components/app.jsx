@@ -7,12 +7,12 @@ import PortfolioContainer from './portfolio/portfolioContainer';
 import SignUpForm from './signUp/signUpContainer';
 import { Authorized, ProtectedRoute } from '../util/routeUtil';
 import TransactionsContainer from './transactions/transactionsContainer';
-
+import Modal from './modal/modal'
 
 const App = () => (
 
     <>
-
+         <Modal />
         <Switch>
             
             <Route exact path='/' component={SplashForm} />
