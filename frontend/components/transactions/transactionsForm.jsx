@@ -5,9 +5,9 @@ import { Link, Redirect } from 'react-router-dom';
 class PortfolioForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {loaded: false, ticker: '', qty: 0}
+        this.state = {loaded: false}
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+
     }
 
     componentDidMount(){
@@ -20,12 +20,7 @@ class PortfolioForm extends React.Component {
         e.preventDefault();
         this.props.logout();
     }
-    handleChange(field) {
-
-        return (e) => {
-            this.setState({ [field]: e.target.value });
-        };
-    }
+    
 
 
 
@@ -34,19 +29,7 @@ class PortfolioForm extends React.Component {
         if(!this.state.loaded){
             return null;
         }
-        // debugger
-        if(this.props.companies.length < 1){
-            companies = '';
-        } else {
-            
-            companies = this.props.companies.map( company => {
-                return (
-                    <li key={company.id}>
-                        <div>{company.name}</div>
-                    </li>
-                )
-            })
-        }
+        
 
         // debugger
         return (
@@ -54,19 +37,16 @@ class PortfolioForm extends React.Component {
             <div className='portfolio-page'>
                 <div className='portfolio-nav-bar'>
                     <button className='logout-button' onClick={this.handleSubmit} type='submit'>Sign Out {this.props.user.email}</button>
-                    <Link to='/transactions'>Transactions</Link>
+                    <Link to='/portfolio'>Portfolio</Link>
 
                 </div>
                 <div className='portfolio-body'>
                     <div className='portfolio-left'>
                         <p>Hi {this.props.user.name}</p>
-                        <p>Portfolio</p>
+                        <p>Transactions</p>
                         
                     </div>
                     <div className = 'portfolio-right'>
-                        <p>Cash - ${this.props.user.money}</p>
-                        <input  placeholder='Ticker' type="text" value={this.state.ticker} onChange={this.handleChange('ticker')}/>
-                        <input type="text" placeholder='Qty' value={this.state.qty} onChange={this.handleChange('qty')} />
                         <ul>
                             {companies}
                         </ul>

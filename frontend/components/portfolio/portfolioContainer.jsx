@@ -6,7 +6,7 @@ import { getCompanies } from '../../actions/companyActions';
 
 
 const msp = state => {
-    debugger
+    // debugger
     return {
     errors: state.errors,
     user: state.entities.user[state.session.id], 

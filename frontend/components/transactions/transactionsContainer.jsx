@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
-import StocksForm from './stocksForm';
+import TransactionsForm from './transactionsForm';
 import { clearErrors, logout, } from '../../actions/sessionActions';
 import { getCompanies } from '../../actions/companyActions';
 
 
 
 const msp = state => {
-    debugger
     return {
     errors: state.errors,
     user: state.entities.user[state.session.id], 
@@ -22,4 +21,4 @@ const mdp = dispatch => ({
  
 });
 
-export default connect(msp, mdp)(StocksForm);
+export default connect(msp, mdp)(TransactionsForm);
