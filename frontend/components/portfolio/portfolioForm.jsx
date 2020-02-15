@@ -34,7 +34,7 @@ class PortfolioForm extends React.Component {
         if(!this.state.loaded){
             return null;
         }
-        debugger
+        // debugger
         if(this.props.companies.length < 1){
             companies = '';
         } else {
