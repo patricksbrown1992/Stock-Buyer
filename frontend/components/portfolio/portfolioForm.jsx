@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-
+import {getQuotes, getNews} from '../../util/iexUtil';
+import News from './news';
 
 class PortfolioForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {loaded: false, ticker: '', qty: 0}
+        this.state = {loaded: false, ticker: '', qty: 0, quotes: {}, news: []}
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -15,6 +16,12 @@ class PortfolioForm extends React.Component {
 
         this.props.getTransactions(this.props.user).then(() => this.props.getCompanies()).then(() => this.setState({loaded: true}))
         
+        
+    }
+
+    componentDidUpdate(){
+        debugger
+        getNews('AAPL').then(news => this.setState({news}));
     }
 
 
@@ -65,6 +72,7 @@ class PortfolioForm extends React.Component {
     render() {
         let companies;
         let transactions;
+        let quotes;
         if(!this.state.loaded){
             return null;
         }
@@ -96,6 +104,17 @@ class PortfolioForm extends React.Component {
                 )
             }, this)
         }
+        // if(Object.values(this.state.quotes).length){
+        //     quotes = Object.values(this.state.quotes).map( quote => {
+     
+        //         debugger
+        //         return (
+        //             <li key={quote.ticker}>
+        //                 <div>{quote.company_ticker} - {quote.net_shares} shares ${quote.purchase_price}</div>
+        //             </li>
+        //         )
+        //     }, this)
+        // }
         
 
    
@@ -124,7 +143,10 @@ class PortfolioForm extends React.Component {
                         <button onClick={this.handleClick}>Buy</button>
                         <ul>
                             {companies}
+                            
                         </ul>
+                        <h3>News</h3>
+                        <News news={this.state.news}/>
                     </div>
 
                 </div>
