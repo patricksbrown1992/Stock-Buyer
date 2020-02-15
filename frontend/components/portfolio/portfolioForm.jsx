@@ -38,6 +38,7 @@ class PortfolioForm extends React.Component {
         transaction['purchase_shares'] = parseInt(this.state.qty);
         transaction['average_price'] = this.props.companies[this.state.ticker].market_cap;
         transaction['net_shares'] = parseInt(this.state.qty);
+        transaction['buy'] = true;
         // debugger
         this.props.createTransaction(transaction)
     }

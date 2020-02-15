@@ -37,7 +37,7 @@ class PortfolioForm extends React.Component {
                 // debugger
                 return (
                     <li key={transaction.id}>
-                        <div>Buy ({transaction.company_ticker}}) - {transaction.net_shares} @ {transaction.purchase_price}</div>
+                        <div>Buy ({transaction.company_ticker}) - {transaction.net_shares} @ {transaction.purchase_price}</div>
                         
                     </li>
                 )
