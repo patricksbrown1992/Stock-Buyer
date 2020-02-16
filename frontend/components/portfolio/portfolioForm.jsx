@@ -16,7 +16,7 @@ class PortfolioForm extends React.Component {
 
     componentDidMount(){
 
-        this.props.getTransactions(this.props.user).then(() => this.setState({loaded: true}))
+        this.props.getTransactions(this.props.user).then(() => this.setState({loaded: true}), () => this.props.getBusinesses(this.props.user))
         
     }
 
@@ -113,11 +113,24 @@ class PortfolioForm extends React.Component {
     render() {
      
         let transactions;
-    
+        let businesses;
+
         if(!this.state.loaded){
             return null;
         }
-        
+        if(Object.values(this.props.business).length){
+            businesses = Object.values(this.props.businesses).map( business => {
+     
+
+                return (
+                    <li key={business.id}>
+                        <div>{business.ticker} - {business.net_shares} shares ${business.price_now}</div>
+                    </li>
+                )
+            }, this)
+        } else {
+            businesses = ''
+        }
       
 
         if(Object.values(this.props.transactions).length < 1){
@@ -153,8 +166,11 @@ class PortfolioForm extends React.Component {
                         <p>Hi {this.props.user.name}</p>
                         <p>Portfolio</p>
                         <ul>
-
+                            
                             {transactions}
+                        </ul>
+                        <ul>
+                            {businesses}
                         </ul>
                         
                     </div>

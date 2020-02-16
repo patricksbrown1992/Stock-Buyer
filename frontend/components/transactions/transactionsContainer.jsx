@@ -10,7 +10,7 @@ const msp = state => {
     return {
     errors: state.errors,
     user: state.entities.user[state.session.id], 
-    companies: state.entities.companies,
+    businesses: state.entities.businesses,
     transactions: Object.values(state.entities.transactions)
     }
 };
