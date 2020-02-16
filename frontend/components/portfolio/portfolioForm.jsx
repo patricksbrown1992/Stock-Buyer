@@ -167,7 +167,7 @@ class PortfolioForm extends React.Component {
   
        
         let businesses;
-        
+        let total = 0;
         if(!this.state.loaded){
             return null;
         }
@@ -178,30 +178,18 @@ class PortfolioForm extends React.Component {
             
         } else {
             businesses = Object.values(this.props.businesses).map( business => {
-     
+                let count = business.price_now * business.net_shares
+           
+                total += count
                 return (
-                    <li key={business.id}>
-                        <div>{business.ticker} - {business.net_shares} shares ${business.price_now}</div>
+                    <li className= 'transaction-li' key={business.id}>
+                        {business.ticker} - {business.net_shares} shares ${count.toFixed(2)}
                     </li>
                 )
             }, this)
         }
       
 
-        // if(Object.values(this.props.transactions).length < 1){
-        //     transactions = '';
-        // } else {
-            
-        //     transactions = Object.values(this.props.transactions).map( transaction => {
-     
-
-        //         return (
-        //             <li key={transaction.id}>
-        //                 <div>{transaction.company_ticker} - {transaction.net_shares} shares ${transaction.purchase_price}</div>
-        //             </li>
-        //         )
-        //     }, this)
-        // }
 
         
   
@@ -212,14 +200,15 @@ class PortfolioForm extends React.Component {
 
             <div className='portfolio-page'>
                 <div className='portfolio-nav-bar'>
-                    <button className='logout-button' onClick={this.handleSubmit} type='submit'>Sign Out {this.props.user.email}</button>
+                    <button className='logout-button' onClick={this.handleSubmit} type='submit'>Sign Out</button>
                     <Link to='/transactions'>Transactions</Link>
 
                 </div>
                 <div className='portfolio-body'>
                     <div className='portfolio-left'>
-                        <p>Hi {this.props.user.name}</p>
-                        <p>Portfolio</p>
+                        <p id="username">Hi {this.props.user.name}</p>
+                        <br/>
+                        <p id='transactions-title'>Portfolio {total.toFixed(2)}</p>
                         
                         <ul>
                             {businesses}

@@ -38,15 +38,15 @@ class PortfolioForm extends React.Component {
                 
                 if (transaction.buy){
                     return (
-                        <li key={transaction.id}>
-                            <div>Buy ({transaction.company_ticker}) - {transaction.net_shares} @ {transaction.purchase_price}</div>
+                        <li className= 'transaction-li' key={transaction.id}>
+                            Buy ({transaction.company_ticker}) - {transaction.net_shares} @ {transaction.purchase_price}
                             
                         </li>
                     )
                 }else{
                     return (
-                        <li key={transaction.id}>
-                            <div>Sell ({transaction.company_ticker}) - {transaction.net_shares} @ {transaction.purchase_price}</div>
+                        <li className= 'transaction-li' key={transaction.id}>
+                            Sell ({transaction.company_ticker}) - {transaction.net_shares} @ {transaction.purchase_price}
                             
                         </li>
                     )
@@ -60,14 +60,15 @@ class PortfolioForm extends React.Component {
 
             <div className='portfolio-page'>
                 <div className='portfolio-nav-bar'>
-                    <button className='logout-button' onClick={this.handleSubmit} type='submit'>Sign Out {this.props.user.email}</button>
+                    <button className='logout-button' onClick={this.handleSubmit} type='submit'>Sign Out</button>
                     <Link to='/portfolio'>Portfolio</Link>
 
                 </div>
                 <div className='portfolio-body'>
                     <div className='transactions-left'>
-                        <p>Hi {this.props.user.name}</p>
-                        <p>Transactions</p>
+                        <h3 id="username"> Hi {this.props.user.name}</h3>
+                        <br/>
+                        <h1 id='transactions-title'>Transactions</h1>
                     
                         <ul>
                             {transactions}
