@@ -1,14 +1,16 @@
-export const getQuotes = tickers => {
-    return $.ajax({
-        method: "GET",
-        url: `https://cloud.iexapis.com/stable/stock/market/batch?symbols=${tickers.join(",")}&types=quote&token=${window.iexAPIKey}`
-    })
-}
 
-export const getNews = ticker => {
+
+export const getPrice = (ticker) => {
     debugger
     return $.ajax({
         method: "GET",
-        url: `https://cloud.iexapis.com/stable/stock/${ticker}/news/last/5?token=${window.iexAPIKey}`
+        
+        url: `https://cloud.iexapis.com/stable/stock/${ticker}/quote?token=${window.iexAPIKey}`
+    })
+}
+export const getNews = ticker => {
+    return $.ajax({
+        method: "GET",
+        url: `https://cloud.iexapis.com/stable/stock/${ticker}/news/last/3?token=${window.iexAPIKey}`
     })
 }

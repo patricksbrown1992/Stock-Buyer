@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import {getQuotes, getNews} from '../../util/iexUtil';
-import News from './news';
+import {getPrice, getNews} from '../../util/iexUtil';
+
 
 class PortfolioForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {loaded: false, ticker: '', qty: 0, quotes: {}, news: []}
+        this.state = {loaded: false, ticker: '', qty: 0, price: [], symbol: []}
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -19,18 +19,14 @@ class PortfolioForm extends React.Component {
         
     }
 
-    componentDidUpdate(){
-        debugger
-        getNews('AAPL').then(news => this.setState({news}));
-    }
-
+ 
 
     handleSubmit(e) {
         e.preventDefault();
         this.props.logout();
     }
     handleChange(field) {
-
+        debugger
         return (e) => {
             this.setState({ [field]: e.target.value });
         };
@@ -39,32 +35,41 @@ class PortfolioForm extends React.Component {
         e.preventDefault();
 
         let ticker = this.state.ticker;
-        let amt = this.props.companies[ticker].market_cap;
-        let quant = parseInt(this.state.qty);
-        let user = this.props.user;
-        if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
-            return this.props.portfolioBuy();
-        } else if(!this.props.companies[ticker]){
-            return this.props.portfolioTicker();
-        } else if (user.money < (amt * quant).toFixed(2)){
+        // let amt = this.props.companies[ticker].market_cap;
+        // let quant = parseInt(this.state.qty);
+        // let user = this.props.user;
+        // if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
+        //     return this.props.portfolioBuy();
+        // } else if(!this.props.companies[ticker]){
+        //     return this.props.portfolioTicker();
+        // } else if (user.money < (amt * quant).toFixed(2)){
     
-            return this.props.portfolioMoney();
-        } else {
-            let transaction = {};
+        //     return this.props.portfolioMoney();
+        // } else {
+        //     let transaction = {};
  
-            transaction['user_id'] = user.id;
-            transaction['company_ticker'] = ticker;
+        //     transaction['user_id'] = user.id;
+        //     transaction['company_ticker'] = ticker;
             
-            transaction['purchase_price'] = amt;
-            transaction['purchase_shares'] = quant;
-            transaction['average_price'] = amt;
-            transaction['net_shares'] = quant;
-            transaction['buy'] = true;
+        //     transaction['purchase_price'] = amt;
+        //     transaction['purchase_shares'] = quant;
+        //     transaction['average_price'] = amt;
+        //     transaction['net_shares'] = quant;
+        //     transaction['buy'] = true;
             
-            user.money = (user.money -= amt * quant).toFixed(2);
- 
-            this.props.createTransaction(transaction).then(() => this.setState({qty: 0, ticker:''}), this.props.updateUser(user))
-        }
+        //     user.money = (user.money -= amt * quant).toFixed(2);
+            
+            getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}), err => console.log(err))
+            // .then((price) => this.props.createTransaction({
+            //     'user_id': user.id, 
+            //     'company_ticker': ticker, 
+            //     'purchase_price': price.latestPrice, 
+            //     'average_price': price.latestPrice, 
+            //     'purchase_shares': amt,
+            //     'net_shares': quant,
+            //     'buy': true
+            // })).then(() => this.setState({qty: 0, ticker:''}), this.props.updateUser(user))
+        // }
     }
 
 
@@ -72,11 +77,11 @@ class PortfolioForm extends React.Component {
     render() {
         let companies;
         let transactions;
-        let quotes;
+        let price;
         if(!this.state.loaded){
             return null;
         }
-   
+        
         if(Object.values(this.props.companies).length < 1){
             companies = '';
         } else {
@@ -104,17 +109,15 @@ class PortfolioForm extends React.Component {
                 )
             }, this)
         }
-        // if(Object.values(this.state.quotes).length){
-        //     quotes = Object.values(this.state.quotes).map( quote => {
-     
-        //         debugger
-        //         return (
-        //             <li key={quote.ticker}>
-        //                 <div>{quote.company_ticker} - {quote.net_shares} shares ${quote.purchase_price}</div>
-        //             </li>
-        //         )
-        //     }, this)
-        // }
+
+        if(this.state.price){
+            debugger
+            price = <span> {this.state.symbol} price: {this.state.price}</span>
+                
+        } else {
+            price = ''
+        }
+  
         
 
    
@@ -143,10 +146,9 @@ class PortfolioForm extends React.Component {
                         <button onClick={this.handleClick}>Buy</button>
                         <ul>
                             {companies}
-                            
+                            {price}
                         </ul>
-                        <h3>News</h3>
-                        <News news={this.state.news}/>
+                        
                     </div>
 
                 </div>
