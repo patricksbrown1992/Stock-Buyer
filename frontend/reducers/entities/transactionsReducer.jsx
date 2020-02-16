@@ -2,6 +2,7 @@ import {RECEIVE_TRANSACTION, RECEIVE_TRANSACTIONS, CLEAR_TRANSACTION} from '../.
 import { merge } from 'lodash';
 
 const transactionReducer = (state={}, action) => {
+    debugger
     Object.freeze(state);
 
     switch (action.type){
