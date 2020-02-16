@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import {getPrice, getNews} from '../../util/iexUtil';
-
+const receiveErrors = errors => {
+   
+    return {
+    type: RECEIVE_ERRORS,
+    errors
+    };
+};
 
 class PortfolioForm extends React.Component {
     constructor(props) {
@@ -84,7 +90,7 @@ class PortfolioForm extends React.Component {
                 .then( () => this.props.updateUser({id: user.id, money: user.money + this.state.price * quant })).then(() => this.props.updateBusiness(user.id, 
                     {id: id, user_id: user.id, ticker: ticker, net_shares: now_net_shares, purchase_price: this.state.price, price_now: this.state.price}
                     
-                    )) 
+                    ))
      
             }
     
@@ -138,7 +144,7 @@ class PortfolioForm extends React.Component {
                 .then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant })).then(() => this.props.updateBusiness(user.id, 
                     {id: id, user_id: user.id, ticker: ticker, net_shares: now_net_shares, purchase_price: this.state.price, price_now: this.state.price}
                     
-                    )) 
+                    ))
             } else {
                 
                 getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, () => this.props.createTransaction({
@@ -151,11 +157,12 @@ class PortfolioForm extends React.Component {
                     'buy': true
                 })
                 
-                )).then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant }))
+                ), err => this.props.portfolioTicker()).then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant }))
                 .then(() => this.props.createBusiness(user.id, 
                     {user_id: user.id, ticker: ticker, net_shares: quant, purchase_price: this.state.price, price_now: this.state.price}
                     
-                    )) 
+                    )).catch(err => console.log(err))
+                
             }
            
         }
@@ -232,7 +239,7 @@ class PortfolioForm extends React.Component {
                         <br/>
                         <button onClick={this.handleClickSell}>Sell</button>
                         
-                        price: {this.state.price}
+                       
                     </div>
 
                 </div>
