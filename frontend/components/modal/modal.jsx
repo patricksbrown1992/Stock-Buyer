@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PortfolioBuy from '../portfolio/portfolioBuyContainer'
 import PortfolioTicker from '../portfolio/portfolioTickerContainer';
 import PortfolioMoney from '../portfolio/portfolioMoneyContainer';
+import PortfolioSellMoneyContainer from '../portfolio/PortfolioSellMoneyContainer';
+import PortfolioSellContainer from '../portfolio/portfolioSellContainer'
 
 function Modal({ modal, closeModal }) {
 
@@ -20,6 +22,12 @@ function Modal({ modal, closeModal }) {
             break;
         case 'portfolio-money':
             component = <PortfolioMoney />;
+            break;
+        case 'portfolio-sell-money':
+                component = <PortfolioSellMoneyContainer />;
+                break;
+        case 'portfolio-sell':
+            component = <PortfolioSellContainer />;
             break;
         default:
             return null;

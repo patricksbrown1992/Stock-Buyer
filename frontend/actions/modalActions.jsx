@@ -27,6 +27,24 @@ export const portfolioTicker = () => {
     };
 };
 
+export const portfolioMoneySell = () => {
+
+    return {
+        type: OPEN_MODAL,
+
+        modal: 'portfolio-sell-money'
+    };
+};
+
+export const portfolioSell = () => {
+
+    return {
+        type: OPEN_MODAL,
+
+        modal: 'portfolio-sell'
+    };
+};
+
 
 export const portfolioMoney = () => {
 

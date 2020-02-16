@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import PortfolioForm from './portfolioForm';
 import { clearErrors, logout, updateUser } from '../../actions/sessionActions';
 import {getTransactions,createTransaction} from '../../actions/transactionActions';
-import {portfolioBuy, portfolioTicker, portfolioMoney} from '../../actions/modalActions';
+import {portfolioBuy, portfolioTicker, portfolioMoney, portfolioMoneySell, portfolioSell} from '../../actions/modalActions';
 
 
 
@@ -12,7 +12,7 @@ const msp = state => {
     return {
     errors: state.errors,
     user: state.entities.user[state.session.id], 
-    transactions: Object.values(state.entities.transactions)
+    transactions: state.entities.transactions
     }
 };
 
@@ -25,7 +25,9 @@ const mdp = dispatch => ({
     portfolioBuy: () => dispatch(portfolioBuy()),
     portfolioTicker: () => dispatch(portfolioTicker()),
     portfolioMoney: () => dispatch(portfolioMoney()),
-    updateUser: user => dispatch(updateUser(user))
+    updateUser: user => dispatch(updateUser(user)),
+    portfolioMoneySell: () => dispatch(portfolioMoneySell()),
+    portfolioSell: () => dispatch(portfolioSell())
 
 
  

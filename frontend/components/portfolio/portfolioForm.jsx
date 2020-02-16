@@ -9,7 +9,9 @@ class PortfolioForm extends React.Component {
         this.state = {loaded: false, ticker: '', qty: 0, price: [], symbol: []}
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClickBuy = this.handleClickBuy.bind(this);
+        this.handleClickSell = this.handleClickSell.bind(this);
+
     }
 
     componentDidMount(){
@@ -17,6 +19,24 @@ class PortfolioForm extends React.Component {
         this.props.getTransactions(this.props.user).then(() => this.setState({loaded: true}))
         
         
+    }
+
+    handleClickSell(e){
+        e.preventDefault();
+        let ticker = this.state.ticker;
+        let quant = parseInt(this.state.qty);
+        debugger
+        if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
+            return this.props.portfolioBuy();
+        } else if(!this.props.transactions[ticker]){
+            debugger
+            return this.props.portfolioSell()
+        } else if(quant > this.props.transactions[ticker].net_shares){
+            debugger
+            return this.props.portfolioMoneySell();
+        }else { 
+            console.log('hi')
+        }
     }
 
  
@@ -31,7 +51,7 @@ class PortfolioForm extends React.Component {
             this.setState({ [field]: e.target.value });
         };
     }
-    handleClick(e){
+    handleClickBuy(e){
         e.preventDefault();
 
         let ticker = this.state.ticker;
@@ -67,18 +87,18 @@ class PortfolioForm extends React.Component {
     render() {
      
         let transactions;
-        let price;
+    
         if(!this.state.loaded){
             return null;
         }
         
       
 
-        if(this.props.transactions.length < 1){
+        if(Object.values(this.props.transactions).length < 1){
             transactions = '';
         } else {
             
-            transactions = this.props.transactions.map( transaction => {
+            transactions = Object.values(this.props.transactions).map( transaction => {
      
 
                 return (
@@ -89,13 +109,7 @@ class PortfolioForm extends React.Component {
             }, this)
         }
 
-        if(this.state.price){
-       
-            price = <span> {this.state.symbol} price: {this.state.price}</span>
-                
-        } else {
-            price = ''
-        }
+        
   
         
 
@@ -122,11 +136,10 @@ class PortfolioForm extends React.Component {
                         <p>Cash - ${this.props.user.money}</p>
                         <input  placeholder='Ticker' type="text" value={this.state.ticker} onChange={this.handleChange('ticker')}/>
                         <input type="text" placeholder='Qty' value={this.state.qty} onChange={this.handleChange('qty')} />
-                        <button onClick={this.handleClick}>Buy</button>
-                        <ul>
-                   
-                            {price}
-                        </ul>
+                        <button onClick={this.handleClickBuy}>Buy</button>
+                        <br/>
+                        <button onClick={this.handleClickSell}>Sell</button>
+                        
                         
                     </div>
 
