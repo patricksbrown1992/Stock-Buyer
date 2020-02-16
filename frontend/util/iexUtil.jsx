@@ -1,7 +1,7 @@
 
 
 export const getPrice = (ticker) => {
-
+  
     return $.ajax({
         method: "GET",
         

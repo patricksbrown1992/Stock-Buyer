@@ -35,7 +35,7 @@ class PortfolioForm extends React.Component {
         } else {
             
             transactions = this.props.transactions.map( transaction => {
-                // debugger
+                
                 if (transaction.buy){
                     return (
                         <li key={transaction.id}>

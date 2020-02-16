@@ -16,7 +16,7 @@ class PortfolioForm extends React.Component {
 
     componentDidMount(){
 
-        this.props.getTransactions(this.props.user).then(() => this.setState({loaded: true}), () => this.props.getBusinesses(this.props.user))
+        this.props.getBusinesses(this.props.user).then( ()=> this.props.getTransactions(this.props.user)).then(() => this.setState({loaded: true}))
         
     }
 
@@ -70,7 +70,7 @@ class PortfolioForm extends React.Component {
         this.props.logout();
     }
     handleChange(field) {
-        // debugger
+    
         return (e) => {
             this.setState({ [field]: e.target.value });
         };
@@ -90,20 +90,44 @@ class PortfolioForm extends React.Component {
     
         //     return this.props.portfolioMoney();
         } else {
-      
-           
-            getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, () => this.props.createTransaction({
-                'user_id': user.id, 
-                'company_ticker': ticker, 
-                'purchase_price': this.state.price, 
-                'average_price': this.state.price, 
-                'purchase_shares': quant,
-                'net_shares': quant,
-                'buy': true
-            })
-            
-        )).then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant })) 
-   
+            if(this.props.businesses[ticker]){
+                let curr_net_shares = this.props.businesses[ticker].net_shares;
+                let now_net_shares = quant + curr_net_shares;
+                let id = this.props.businesses[ticker].id
+                getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}
+                    
+                    , () => this.props.createTransaction({
+                    'user_id': user.id, 
+                    'company_ticker': ticker, 
+                    'purchase_price': this.state.price, 
+                    'average_price': this.state.price, 
+                    'purchase_shares': quant,
+                    'net_shares': quant,
+                    'buy': true
+                }) 
+                ))
+                .then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant })).then(() => this.props.updateBusiness(user.id, 
+                    {id: id, user_id: user.id, ticker: ticker, net_shares: now_net_shares, purchase_price: this.state.price, price_now: this.state.price}
+                    
+                    )) 
+            } else {
+                
+                getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, () => this.props.createTransaction({
+                    'user_id': user.id, 
+                    'company_ticker': ticker, 
+                    'purchase_price': this.state.price, 
+                    'average_price': this.state.price, 
+                    'purchase_shares': quant,
+                    'net_shares': quant,
+                    'buy': true
+                })
+                
+                )).then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant }))
+                .then(() => this.props.createBusiness(user.id, 
+                    {user_id: user.id, ticker: ticker, net_shares: quant, purchase_price: this.state.price, price_now: this.state.price}
+                    
+                    )) 
+            }
            
         }
     }
@@ -111,42 +135,44 @@ class PortfolioForm extends React.Component {
 
 
     render() {
-     
-        let transactions;
+  
+       
         let businesses;
-
+        
         if(!this.state.loaded){
             return null;
         }
-        if(Object.values(this.props.business).length){
+  
+        if(Object.values(this.props.businesses).length < 1){
+          
+            businesses = '';
+            
+        } else {
             businesses = Object.values(this.props.businesses).map( business => {
      
-
                 return (
                     <li key={business.id}>
                         <div>{business.ticker} - {business.net_shares} shares ${business.price_now}</div>
                     </li>
                 )
             }, this)
-        } else {
-            businesses = ''
         }
       
 
-        if(Object.values(this.props.transactions).length < 1){
-            transactions = '';
-        } else {
+        // if(Object.values(this.props.transactions).length < 1){
+        //     transactions = '';
+        // } else {
             
-            transactions = Object.values(this.props.transactions).map( transaction => {
+        //     transactions = Object.values(this.props.transactions).map( transaction => {
      
 
-                return (
-                    <li key={transaction.id}>
-                        <div>{transaction.company_ticker} - {transaction.net_shares} shares ${transaction.purchase_price}</div>
-                    </li>
-                )
-            }, this)
-        }
+        //         return (
+        //             <li key={transaction.id}>
+        //                 <div>{transaction.company_ticker} - {transaction.net_shares} shares ${transaction.purchase_price}</div>
+        //             </li>
+        //         )
+        //     }, this)
+        // }
 
         
   
@@ -165,10 +191,7 @@ class PortfolioForm extends React.Component {
                     <div className='portfolio-left'>
                         <p>Hi {this.props.user.name}</p>
                         <p>Portfolio</p>
-                        <ul>
-                            
-                            {transactions}
-                        </ul>
+                        
                         <ul>
                             {businesses}
                         </ul>
@@ -182,7 +205,7 @@ class PortfolioForm extends React.Component {
                         <br/>
                         <button onClick={this.handleClickSell}>Sell</button>
                         
-                        
+                        price: {this.state.price}
                     </div>
 
                 </div>

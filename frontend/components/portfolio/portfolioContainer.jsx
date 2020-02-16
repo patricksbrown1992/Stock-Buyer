@@ -4,6 +4,7 @@ import { clearErrors, logout, updateUser } from '../../actions/sessionActions';
 import {getTransactions,createTransaction} from '../../actions/transactionActions';
 import {portfolioBuy, portfolioTicker, portfolioMoney, portfolioMoneySell, portfolioSell} from '../../actions/modalActions';
 import {updateBusiness, getBusinesses, getBusiness, deleteBusiness, createBusiness} from '../../actions/businessActions';
+import {getPrice, getNews} from '../../util/iexUtil';
 
 
 
@@ -32,9 +33,10 @@ const mdp = dispatch => ({
     portfolioSell: () => dispatch(portfolioSell()),
     getBusinesses: user => dispatch(getBusinesses(user)),
     getBusiness: business => dispatch(getBusiness(business)),
-    createBusiness: (user, business) => dispatch(createBusiness(user,business)),
-    updateBusiness: (user, business) => dispatch(updateBusiness(user,business)),
-    deleteBusiness: business => dispatch(deleteBusiness(business))
+    createBusiness: (id, business) => dispatch(createBusiness(id,business)),
+    updateBusiness: (id, business) => dispatch(updateBusiness(id,business)),
+    deleteBusiness: business => dispatch(deleteBusiness(business)),
+    getPrice: ticker => dispatch(getPrice(ticker))
 
 
  

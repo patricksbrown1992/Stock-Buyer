@@ -2,7 +2,7 @@ export const getBusinesses = (user) => {
     return $.ajax({
         method: "GET",
         url: `api/users/${user.id}/businesses`,
-        data
+        
     })
 }
 
@@ -16,20 +16,22 @@ export const getBusiness = (business) => {
     })
 } 
 
-export const updateBusiness = (user, business) => {
+export const updateBusiness = (id, business) => {
+  
     return $.ajax({
         method: "PATCH",
-        url: `api/users/${user.id}/businesses/${business.id}`,
+        url: `api/users/${id}/businesses/${business.id}`,
         data: {
             business
         }
     })
 } 
 
-export const createBusiness = (user, business) => {
+export const createBusiness = (id, business) => {
+    debugger
     return $.ajax({
         method: "POST",
-        url: `api/users/${user.id}/businesses/`,
+        url: `api/users/${id}/businesses`,
         data: {
             business
         }

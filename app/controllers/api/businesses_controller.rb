@@ -1,4 +1,5 @@
 class Api::BusinessesController < ApplicationController
+  
     def index
         @businesses = Business.all
         render json: @businesses, status: 200
@@ -15,6 +16,7 @@ class Api::BusinessesController < ApplicationController
 
     def create
         @business = Business.create(business_params)
+        debugger
         if @business.save 
             render json: @business, status: 200
         else
@@ -24,9 +26,12 @@ class Api::BusinessesController < ApplicationController
 
     def update
         @business = Business.find_by(id: params[:id])
+     
         if @business.update(business_params)
+          
             render json: @business, status: 200
         else
+           
             render json: @business.errors.full_messages, status: 422
         end
     end
