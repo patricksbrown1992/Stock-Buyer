@@ -51,7 +51,22 @@ class PortfolioForm extends React.Component {
                 let now_net_shares = curr_net_shares - quant;
                 let id = this.props.businesses[ticker].id;
             if(now_net_shares == 0){
-                console.log('hi')
+                getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}
+                    
+                    , () => this.props.createTransaction({
+                    'user_id': user.id, 
+                    'company_ticker': ticker, 
+                    'purchase_price': this.state.price, 
+                    'average_price': this.state.price, 
+                    'purchase_shares': quant,
+                    'net_shares': quant,
+                    'buy': false
+                }) 
+                ))
+                .then( () => this.props.updateUser({id: user.id, money: user.money + this.state.price * quant })).then(() => this.props.deleteBusiness( 
+                    {id: id, user_id: user.id, ticker: ticker, net_shares: 0, purchase_price: this.state.price, price_now: this.state.price}
+                    
+                    )) 
             } else {
                 
                 getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}
@@ -70,17 +85,7 @@ class PortfolioForm extends React.Component {
                     {id: id, user_id: user.id, ticker: ticker, net_shares: now_net_shares, purchase_price: this.state.price, price_now: this.state.price}
                     
                     )) 
-            //     getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, () => this.props.createTransaction({
-            //         'user_id': user.id, 
-            //         'company_ticker': ticker, 
-            //         'purchase_price': this.state.price, 
-            //         'average_price': this.state.price, 
-            //         'purchase_shares': quant,
-            //         'net_shares': quant,
-            //         'buy': false
-            //     })
-                
-            // )).then( () => this.props.updateUser({id: user.id, money: user.money + this.state.price * quant })) 
+     
             }
     
             

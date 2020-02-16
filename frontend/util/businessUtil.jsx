@@ -28,7 +28,7 @@ export const updateBusiness = (id, business) => {
 } 
 
 export const createBusiness = (id, business) => {
-    debugger
+  
     return $.ajax({
         method: "POST",
         url: `api/users/${id}/businesses`,
@@ -39,8 +39,9 @@ export const createBusiness = (id, business) => {
 } 
 
 export const deleteBusiness = (business) => {
+    // debugger
     return $.ajax({
         method: "DELETE",
-        url: `api/users/${business.user_id}/businesses/${id}`
+        url: `api/users/${business.user_id}/businesses/${business.id}`
     })
 } 

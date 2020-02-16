@@ -16,7 +16,7 @@ class Api::BusinessesController < ApplicationController
 
     def create
         @business = Business.create(business_params)
-        debugger
+     
         if @business.save 
             render json: @business, status: 200
         else
@@ -38,6 +38,7 @@ class Api::BusinessesController < ApplicationController
 
     def destroy
         @business = Business.find_by(id: params[:id])
+        # debugger
         if @business.destroy
             render json: @business, status: 200
         else

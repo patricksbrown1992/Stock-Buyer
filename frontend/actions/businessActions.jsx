@@ -11,7 +11,7 @@ import * as APIEntitiesUtil from '../util/businessUtil';
      }
  }
  const receiveBusiness = business => {
-     debugger
+ 
      return {
          type: RECEIVE_BUSINESS,
          business 
@@ -37,17 +37,17 @@ import * as APIEntitiesUtil from '../util/businessUtil';
  } 
 
  export const createBusiness = (id, business) => dispatch => {
-    debugger
+    
     return APIEntitiesUtil.createBusiness(id, business).then(business => dispatch(receiveBusiness(business)));
 
 };
 
 export const updateBusiness= (id, business) => dispatch => {
-   
-    APIEntitiesUtil.updateBusiness(id, business).then(business => (dispatch(receiveBusiness(business))))
+    
+    return APIEntitiesUtil.updateBusiness(id, business).then(business => (dispatch(receiveBusiness(business))))
 };
 
 export const deleteBusiness = (business) => dispatch => {
-    
+    // debugger
     return APIEntitiesUtil.deleteBusiness(business).then(business => (dispatch(destroyBusiness(business))));
 };
