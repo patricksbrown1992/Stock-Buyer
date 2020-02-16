@@ -10,7 +10,7 @@ export const getTransactions = (user) => {
 }
 
 export const createTransaction = transaction => {
-    
+    debugger
     return $.ajax({
         method: "POST",
         url: "api/transactions",

@@ -36,8 +36,8 @@ class PortfolioForm extends React.Component {
 
         let ticker = this.state.ticker;
         // let amt = this.props.companies[ticker].market_cap;
-        // let quant = parseInt(this.state.qty);
-        // let user = this.props.user;
+        let quant = parseInt(this.state.qty);
+        let user = this.props.user;
         // if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
         //     return this.props.portfolioBuy();
         // } else if(!this.props.companies[ticker]){
@@ -59,7 +59,15 @@ class PortfolioForm extends React.Component {
             
         //     user.money = (user.money -= amt * quant).toFixed(2);
             
-            getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}), err => console.log(err))
+            getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, () => this.props.createTransaction({
+                'user_id': user.id, 
+                'company_ticker': ticker, 
+                'purchase_price': this.state.price, 
+                'average_price': this.state.price, 
+                'purchase_shares': quant,
+                'net_shares': quant,
+                'buy': true
+            })), err => console.log(err))
             // .then((price) => this.props.createTransaction({
             //     'user_id': user.id, 
             //     'company_ticker': ticker, 
@@ -111,7 +119,7 @@ class PortfolioForm extends React.Component {
         }
 
         if(this.state.price){
-            debugger
+       
             price = <span> {this.state.symbol} price: {this.state.price}</span>
                 
         } else {
