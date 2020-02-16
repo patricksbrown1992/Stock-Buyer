@@ -26,7 +26,7 @@ class PortfolioForm extends React.Component {
         this.props.logout();
     }
     handleChange(field) {
-        debugger
+        // debugger
         return (e) => {
             this.setState({ [field]: e.target.value });
         };
@@ -38,27 +38,16 @@ class PortfolioForm extends React.Component {
         // let amt = this.props.companies[ticker].market_cap;
         let quant = parseInt(this.state.qty);
         let user = this.props.user;
-        // if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
-        //     return this.props.portfolioBuy();
+        if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
+            return this.props.portfolioBuy();
         // } else if(!this.props.companies[ticker]){
         //     return this.props.portfolioTicker();
         // } else if (user.money < (amt * quant).toFixed(2)){
     
         //     return this.props.portfolioMoney();
-        // } else {
-        //     let transaction = {};
- 
-        //     transaction['user_id'] = user.id;
-        //     transaction['company_ticker'] = ticker;
-            
-        //     transaction['purchase_price'] = amt;
-        //     transaction['purchase_shares'] = quant;
-        //     transaction['average_price'] = amt;
-        //     transaction['net_shares'] = quant;
-        //     transaction['buy'] = true;
-            
-        //     user.money = (user.money -= amt * quant).toFixed(2);
-            
+        } else {
+      
+           
             getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, () => this.props.createTransaction({
                 'user_id': user.id, 
                 'company_ticker': ticker, 
@@ -67,23 +56,16 @@ class PortfolioForm extends React.Component {
                 'purchase_shares': quant,
                 'net_shares': quant,
                 'buy': true
-            })), err => console.log(err))
-            // .then((price) => this.props.createTransaction({
-            //     'user_id': user.id, 
-            //     'company_ticker': ticker, 
-            //     'purchase_price': price.latestPrice, 
-            //     'average_price': price.latestPrice, 
-            //     'purchase_shares': amt,
-            //     'net_shares': quant,
-            //     'buy': true
-            // })).then(() => this.setState({qty: 0, ticker:''}), this.props.updateUser(user))
-        // }
+            })), () => this.props.portfolioTicker())
+   
+           
+        }
     }
 
 
 
     render() {
-        let companies;
+     
         let transactions;
         let price;
         if(!this.state.loaded){
@@ -142,7 +124,7 @@ class PortfolioForm extends React.Component {
                         <input type="text" placeholder='Qty' value={this.state.qty} onChange={this.handleChange('qty')} />
                         <button onClick={this.handleClick}>Buy</button>
                         <ul>
-                            {companies}
+                   
                             {price}
                         </ul>
                         

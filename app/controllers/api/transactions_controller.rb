@@ -2,10 +2,12 @@ class Api::TransactionsController < ApplicationController
     def create
         @transaction = Transaction.new(transaction_params)
         @transaction.user_id = current_user.id
-        # debugger
+  
+        
         if @transaction.save
             render json: @transaction, status: 200
         else
+            
             render json: @transaction.errors.full_messages, status: 422
         end
     end
