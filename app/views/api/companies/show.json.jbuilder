@@ -1,1 +1,0 @@
-json.extract! @company, :id, :name, :ticker, :market_cap, :dividend, :avg_volume

@@ -12,7 +12,7 @@ class PortfolioForm extends React.Component {
     }
 
     componentDidMount(){
-         this.props.getCompanies().then(() => this.setState({loaded: true}))
+        this.props.getTransactions(this.props.user).then(() => this.setState({loaded: true}))
        
     }
 
