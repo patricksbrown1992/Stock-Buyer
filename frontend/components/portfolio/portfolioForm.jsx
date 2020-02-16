@@ -179,13 +179,22 @@ class PortfolioForm extends React.Component {
         } else {
             businesses = Object.values(this.props.businesses).map( business => {
                 let count = business.price_now * business.net_shares
-           
+                let percent = ((business.price_now / business.purchase_price) * 100 -100);
                 total += count
-                return (
-                    <li className= 'transaction-li' key={business.id}>
-                        {business.ticker} - {business.net_shares} shares ${count.toFixed(2)}
-                    </li>
-                )
+                if(business.price_now >= business.purchase_price){
+                    return (
+                        <li id='green' className= 'transaction-li' key={business.id}>
+                            {business.ticker} - {business.net_shares} shares ${count.toFixed(2)} ({percent}%)
+                        </li>
+                    )
+                } else {
+                    return (
+                        <li id='red' className= 'transaction-li' key={business.id}>
+                            {business.ticker} - {business.net_shares} shares ${count.toFixed(2)} ({percent}%)
+                        </li>
+                    )
+                }
+                
             }, this)
         }
       
