@@ -18,8 +18,19 @@ class PortfolioForm extends React.Component {
 
         this.props.getTransactions(this.props.user).then(() => this.setState({loaded: true}))
         
-        
     }
+
+    // componentDidUpdate(prevState){
+    //     const num = Object.values(prevState.transactions).length;
+    //     if(num !== Object.values(this.props.transactions).length){
+    //         console.log('here')
+    //         if( num > Object.values(prevState.transactions).length){
+                
+    //         }else {
+
+    //         }
+    //     }
+    // }
 
     handleClickSell(e){
         e.preventDefault();
@@ -35,7 +46,16 @@ class PortfolioForm extends React.Component {
             debugger
             return this.props.portfolioMoneySell();
         }else { 
-            console.log('hi')
+
+            getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, () => this.props.createTransaction({
+                'user_id': user.id, 
+                'company_ticker': ticker, 
+                'purchase_price': this.state.price, 
+                'average_price': this.state.price, 
+                'purchase_shares': quant,
+                'net_shares': quant,
+                'buy': false
+            })), () => this.props.portfolioTicker())
         }
     }
 
@@ -76,7 +96,9 @@ class PortfolioForm extends React.Component {
                 'purchase_shares': quant,
                 'net_shares': quant,
                 'buy': true
-            })), () => this.props.portfolioTicker())
+            })
+            
+        )).then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant })) 
    
            
         }

@@ -19,7 +19,7 @@ class PortfolioTicker extends React.Component {
                 <div className="portfolio-buy-top">
                     <i onClick={this.props.closeModal} className="fas fa-times fa-2x"></i>
                 </div>
-                <h3>please enter a valid ticker</h3>
+                <h3>Please enter a valid ticker</h3>
             </div>
         )
     }

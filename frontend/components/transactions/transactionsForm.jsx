@@ -36,12 +36,22 @@ class PortfolioForm extends React.Component {
             
             transactions = this.props.transactions.map( transaction => {
                 // debugger
-                return (
-                    <li key={transaction.id}>
-                        <div>Buy ({transaction.company_ticker}) - {transaction.net_shares} @ {transaction.purchase_price}</div>
-                        
-                    </li>
-                )
+                if (transaction.buy){
+                    return (
+                        <li key={transaction.id}>
+                            <div>Buy ({transaction.company_ticker}) - {transaction.net_shares} @ {transaction.purchase_price}</div>
+                            
+                        </li>
+                    )
+                }else{
+                    return (
+                        <li key={transaction.id}>
+                            <div>Sell ({transaction.company_ticker}) - {transaction.net_shares} @ {transaction.purchase_price}</div>
+                            
+                        </li>
+                    )
+                }
+
             }, this)
         }
 

@@ -1,5 +1,4 @@
 import * as APIUtil from '../util/sessionAPIUtil';
-import * as userUtil from '../util/userUtil';
 
 export const RECEIVE_USER = 'RECEIVE_USER';
 export const REMOVE_USER = 'REMOVE_USER';
@@ -45,8 +44,8 @@ export const signup = (user) => dispatch => (
 );
 
 export const updateUser = (user) => dispatch => {
-
-    return userUtil.updateUser(user).then(user => (dispatch(receiveUser(user))
+    debugger
+    return APIUtil.updateUser(user).then(user => (dispatch(receiveUser(user))
     ), err => (dispatch(receiveErrors(err.responseJSON))
     ))
 };

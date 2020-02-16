@@ -7,7 +7,6 @@ class Transaction < ApplicationRecord
 
     def less_than_money
         user = User.find_by(id: self.user_id)
-        debugger
         unless user.money >= self.purchase_price * self.purchase_shares
             errors[:Not] << " enough money"
         end

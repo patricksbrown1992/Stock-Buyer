@@ -6,7 +6,7 @@ const transactionReducer = (state={}, action) => {
 
     switch (action.type){
         case RECEIVE_TRANSACTION:
-            debugger
+       
             if(state[action.transaction.company_ticker]){
                 // debugger
                 let before = state[action.transaction.company_ticker]
@@ -15,7 +15,7 @@ const transactionReducer = (state={}, action) => {
                 // debugger
                 return merge({}, state, { [action.transaction.company_ticker]: action.transaction });
             } else {
-                debugger
+              
                 return merge({}, state, { [action.transaction.company_ticker]: action.transaction });
 
             }
