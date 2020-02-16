@@ -36,17 +36,19 @@ class PortfolioForm extends React.Component {
         e.preventDefault();
         let ticker = this.state.ticker;
         let quant = parseInt(this.state.qty);
-        debugger
+        let user = this.props.user;
+  
         if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
             return this.props.portfolioBuy();
         } else if(!this.props.transactions[ticker]){
-            debugger
+          
             return this.props.portfolioSell()
         } else if(quant > this.props.transactions[ticker].net_shares){
-            debugger
+           
             return this.props.portfolioMoneySell();
         }else { 
 
+    
             getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, () => this.props.createTransaction({
                 'user_id': user.id, 
                 'company_ticker': ticker, 
@@ -55,7 +57,9 @@ class PortfolioForm extends React.Component {
                 'purchase_shares': quant,
                 'net_shares': quant,
                 'buy': false
-            })), () => this.props.portfolioTicker())
+            })
+            
+        )).then( () => this.props.updateUser({id: user.id, money: user.money + this.state.price * quant })) 
         }
     }
 
