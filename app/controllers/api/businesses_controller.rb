@@ -1,7 +1,8 @@
 class Api::BusinessesController < ApplicationController
   
     def index
-        @businesses = Business.all
+        @user = User.find(params[:user_id])
+        @businesses = @user.businesses
         render json: @businesses, status: 200
     end
 
@@ -38,7 +39,7 @@ class Api::BusinessesController < ApplicationController
 
     def destroy
         @business = Business.find_by(id: params[:id])
-        # debugger
+      
         if @business.destroy
             render json: @business, status: 200
         else

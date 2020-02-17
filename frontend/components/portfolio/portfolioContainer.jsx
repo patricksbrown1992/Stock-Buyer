@@ -12,7 +12,7 @@ import {getPrice, getNews} from '../../util/iexUtil';
 const msp = state => {
 
     return {
-    errors: state.errors,
+    errors: Object.values(state.errors),
     user: state.entities.user[state.session.id], 
     businesses: state.entities.businesses,
     transactions: state.entities.transactions
@@ -21,7 +21,7 @@ const msp = state => {
 
 const mdp = dispatch => ({
 
-    clearErrors: (user) => dispatch(clearErrors(user)),
+    clearErrors: () => dispatch(clearErrors()),
     logout: () => dispatch(logout()),
     getTransactions: user => dispatch(getTransactions(user)),
     createTransaction: transaction => dispatch(createTransaction(transaction)),
@@ -36,7 +36,8 @@ const mdp = dispatch => ({
     createBusiness: (id, business) => dispatch(createBusiness(id,business)),
     updateBusiness: (id, business) => dispatch(updateBusiness(id,business)),
     deleteBusiness: business => dispatch(deleteBusiness(business)),
-    getPrice: ticker => dispatch(getPrice(ticker))
+    getPrice: ticker => dispatch(getPrice(ticker)),
+    
 
 
  

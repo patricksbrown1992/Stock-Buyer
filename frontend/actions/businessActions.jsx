@@ -48,6 +48,6 @@ export const updateBusiness= (id, business) => dispatch => {
 };
 
 export const deleteBusiness = (business) => dispatch => {
-    // debugger
+ 
     return APIEntitiesUtil.deleteBusiness(business).then(business => (dispatch(destroyBusiness(business))));
 };

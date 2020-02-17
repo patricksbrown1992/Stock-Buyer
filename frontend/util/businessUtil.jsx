@@ -39,7 +39,7 @@ export const createBusiness = (id, business) => {
 } 
 
 export const deleteBusiness = (business) => {
-    // debugger
+    
     return $.ajax({
         method: "DELETE",
         url: `api/users/${business.user_id}/businesses/${business.id}`

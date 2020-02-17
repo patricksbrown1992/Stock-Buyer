@@ -35,7 +35,7 @@ export const getTransactions = (user) => dispatch => {
 }
 
 export const createTransaction = transaction => dispatch => {
-    
+  
     return APITransactionsUtil.createTransaction(transaction)
         .then( 
             transaction => dispatch(receiveTransaction(transaction))),err => (dispatch(receiveErrors(err.responseJSON)))

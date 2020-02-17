@@ -3,13 +3,19 @@ class User < ApplicationRecord
     validates :email, uniqueness: true
     validates_email_format_of :email
     validates :password, length: {minimum: 6, allow_nil: true}
-   
+    validate :positve_money
 
     attr_reader :password
     after_initialize :ensure_session_token
     has_many :transactions
     has_many :businesses
 
+
+    def positve_money
+        unless self.money >= 0
+            errors[:Not] << " enough money"
+        end
+    end
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)
         return nil if user.nil?
