@@ -17,7 +17,7 @@ export const getBusiness = (business) => {
 } 
 
 export const updateBusiness = (id, business) => {
-  
+
     return $.ajax({
         method: "PATCH",
         url: `api/users/${id}/businesses/${business.id}`,

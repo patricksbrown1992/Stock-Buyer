@@ -27,7 +27,7 @@ class Api::BusinessesController < ApplicationController
 
     def update
         @business = Business.find_by(id: params[:id])
-     
+    
         if @business.update(business_params)
           
             render json: @business, status: 200

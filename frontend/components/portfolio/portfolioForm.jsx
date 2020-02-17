@@ -12,7 +12,7 @@ const receiveErrors = errors => {
 class PortfolioForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {loaded: false, ticker: '', qty: 0, price: [], symbol: []}
+        this.state = {loaded: false, ticker: '', qty: 0, price: [], symbol: [], getNew: null}
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleClickBuy = this.handleClickBuy.bind(this);
@@ -22,7 +22,10 @@ class PortfolioForm extends React.Component {
 
     componentDidMount(){
 
-        this.props.getBusinesses(this.props.user).then( ()=> this.props.getTransactions(this.props.user)).then(() => this.setState({loaded: true}))
+        this.props.getBusinesses(this.props.user).then(() => Object.values(this.props.businesses).forEach(business => {
+            getPrice(business.ticker).then(res => this.props.updateBusiness(this.props.user.id, {price_now: res.latestPrice, id: business.id, user_id: this.props.user.id, purchase_price: business.purchase_price, net_shares: business.net_shares, ticker: business.ticker}))
+        })).then(()=> this.props.getTransactions(this.props.user)).then(() => this.setState({loaded: true}))
+       
         
     }
 
