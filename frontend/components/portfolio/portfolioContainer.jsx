@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import PortfolioForm from './portfolioForm';
 import { clearErrors, logout, updateUser } from '../../actions/sessionActions';
-import {getTransactions,createTransaction} from '../../actions/transactionActions';
+import {getTransactions,createTransaction, clearTransactions} from '../../actions/transactionActions';
 import {portfolioBuy, portfolioTicker, portfolioMoney, portfolioMoneySell, portfolioSell} from '../../actions/modalActions';
-import {updateBusiness, getBusinesses, getBusiness, deleteBusiness, createBusiness} from '../../actions/businessActions';
+import {updateBusiness, getBusinesses, getBusiness, deleteBusiness, createBusiness, clearBusinesses} from '../../actions/businessActions';
 import {getPrice, getNews} from '../../util/iexUtil';
 
 
@@ -37,6 +37,8 @@ const mdp = dispatch => ({
     updateBusiness: (id, business) => dispatch(updateBusiness(id,business)),
     deleteBusiness: business => dispatch(deleteBusiness(business)),
     getPrice: ticker => dispatch(getPrice(ticker)),
+    clearTransactions: () => dispatch(clearTransactions()),
+    clearBusinesses: () => dispatch(clearBusinesses())
     
 
 

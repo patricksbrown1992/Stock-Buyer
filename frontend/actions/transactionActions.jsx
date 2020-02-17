@@ -2,7 +2,7 @@ import * as APITransactionsUtil from '../util/transactionsUtil';
 
 export const RECEIVE_TRANSACTIONS = 'RECEIVE_TRANSACTIONS';
 export const RECEIVE_TRANSACTION = 'RECEIVE_TRANSACTION';
-export const CLEAR_TRANSACTION = 'CLEAR_TRANSACTION';
+export const CLEAR_TRANSACTIONS = 'CLEAR_TRANSACTIONS';
 
 const receiveTransaction = transaction => {
 
@@ -23,9 +23,9 @@ const receiveTransactions = transactions => {
 
 
 
-export const receiveClearTransaction = () => {
+export const clearTransactions = () => {
     return {
-        type: CLEAR_TRANSACTION
+        type: CLEAR_TRANSACTIONS
     }
 }
 

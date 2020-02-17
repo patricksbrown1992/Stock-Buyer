@@ -1,4 +1,4 @@
-import { RECEIVE_BUSINESS, RECEIVE_BUSINESSES, DESTROY_BUSINESS} from '../../actions/businessActions';
+import { RECEIVE_BUSINESS, RECEIVE_BUSINESSES, DESTROY_BUSINESS, CLEAR_BUSINESSES} from '../../actions/businessActions';
  import { merge } from 'lodash';
 
  const businessReducer = (state={}, action) => {
@@ -19,7 +19,8 @@ import { RECEIVE_BUSINESS, RECEIVE_BUSINESSES, DESTROY_BUSINESS} from '../../act
             const newState = merge({}, state);
             delete newState[action.business.ticker];
             return newState;
-
+        case CLEAR_BUSINESSES:
+            return {};
         default: 
             return state;
      }

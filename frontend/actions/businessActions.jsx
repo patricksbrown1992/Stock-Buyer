@@ -3,6 +3,7 @@ import * as APIEntitiesUtil from '../util/businessUtil';
  export const RECEIVE_BUSINESS = "RECEIVE_BUSINESS";
  export const RECEIVE_BUSINESSES = "RECEIVE_BUSINESSES";
  export const DESTROY_BUSINESS = 'DESTROY_BUSINESS';
+ export const CLEAR_BUSINESSES = 'CLEAR_BUSINESSES';
 
  const receiveBusinesses = businesses => {
      return {
@@ -17,6 +18,12 @@ import * as APIEntitiesUtil from '../util/businessUtil';
          business 
      }
  }
+
+ export const clearBusinesses = () => {
+    return {
+        type: CLEAR_BUSINESSES
+    }
+}
 
  const destroyBusiness = (business) => {
 

@@ -1,13 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import {getPrice, getNews} from '../../util/iexUtil';
-const receiveErrors = errors => {
-   
-    return {
-    type: RECEIVE_ERRORS,
-    errors
-    };
-};
+
 
 class PortfolioForm extends React.Component {
     constructor(props) {
@@ -21,13 +15,15 @@ class PortfolioForm extends React.Component {
     }
 
     componentDidMount(){
-
+        // this.props.clearBusinesses();
+        // this.props.clearTransactions();
         this.props.getBusinesses(this.props.user).then(() => Object.values(this.props.businesses).forEach(business => {
             getPrice(business.ticker).then(res => this.props.updateBusiness(this.props.user.id, {price_now: res.latestPrice, id: business.id, user_id: this.props.user.id, purchase_price: business.purchase_price, net_shares: business.net_shares, ticker: business.ticker}))
         })).then(()=> this.props.getTransactions(this.props.user)).then(() => this.setState({loaded: true}))
        
         
     }
+  
 
     // componentDidUpdate(prevState){
     //     const num = Object.values(prevState.transactions).length;
@@ -108,6 +104,8 @@ class PortfolioForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.props.clearTransactions();
+        this.props.clearBusinesses();
         this.props.logout();
     }
     handleChange(field) {

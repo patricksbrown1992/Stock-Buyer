@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import TransactionsForm from './transactionsForm';
 import { clearErrors, logout, } from '../../actions/sessionActions';
-import {getTransactions} from '../../actions/transactionActions';
+import {getTransactions, clearTransactions} from '../../actions/transactionActions';
+import {clearBusinesses} from '../../actions/businessActions';
 
 
 
@@ -19,7 +20,9 @@ const mdp = dispatch => ({
 
     clearErrors: (user) => dispatch(clearErrors(user)),
     logout: () => dispatch(logout()),
-    getTransactions: user => dispatch(getTransactions(user))
+    getTransactions: user => dispatch(getTransactions(user)),
+    clearTransactions: () => dispatch(clearTransactions()),
+    clearBusinesses: () => dispatch(clearBusinesses())
  
 });
 

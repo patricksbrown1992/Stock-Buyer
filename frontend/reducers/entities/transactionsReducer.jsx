@@ -1,5 +1,6 @@
-import {RECEIVE_TRANSACTION, RECEIVE_TRANSACTIONS, CLEAR_TRANSACTION} from '../../actions/transactionActions';
+import {RECEIVE_TRANSACTION, RECEIVE_TRANSACTIONS, CLEAR_TRANSACTIONS} from '../../actions/transactionActions';
 import { merge } from 'lodash';
+import { CLEAR_BUSINESSES } from '../../actions/businessActions';
 
 const transactionReducer = (state={}, action) => {
    
@@ -19,6 +20,9 @@ const transactionReducer = (state={}, action) => {
             });
            
             return merge({}, state, transactions);
+        case CLEAR_BUSINESSES:
+            return {};
+
         default: return state;
     }
 }
