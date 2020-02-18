@@ -1,24 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Stock Buyer
 
-Things you may want to cover:
+## Overview
+Buy and sell stocks at the real time price. 
 
-* Ruby version
+## Technology
+Ruby on Rails handles the backend data management. ES6, React and Redux create a fun, dynamic and seamless experience on the frontend. IEX api for real time stock price
 
-* System dependencies
+## Link
+### [Stock Buyer](https://stock-buyer.herokuapp.com/#/)
 
-* Configuration
+![splash](/app/assets/images/splash.png)
 
-* Database creation
+User-Authentication - Users have peace of mind setting their account as their email and password. The password is never saved on the back-end to ensure security. It renders the appropriate errors to help guide users.
 
-* Database initialization
+![transactions](/app/assets/images/transactions.png)
 
-* How to run the test suite
+Lists all transactions for an audit
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+![portfolio](/app/assets/images/portfolio.png)
 
-* ...
+
+
+## Future
+changes stock price with set timeout every X amount of minutes instead of on mount. Graphs
