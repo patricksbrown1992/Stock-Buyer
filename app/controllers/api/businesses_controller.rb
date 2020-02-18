@@ -17,7 +17,6 @@ class Api::BusinessesController < ApplicationController
 
     def create
         @business = Business.create(business_params)
-        # debugger
         if @business.save 
             render json: @business, status: 200
         else
@@ -27,7 +26,6 @@ class Api::BusinessesController < ApplicationController
 
     def update
         @business = Business.find_by(id: params[:id])
-        # debugger
         if @business.update(business_params)
           
             render json: @business, status: 200

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import splash_main from '../../../app/assets/images/splash_main';
 
 const splashHeader = () => (
 

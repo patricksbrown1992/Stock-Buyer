@@ -15,27 +15,13 @@ class PortfolioForm extends React.Component {
     }
 
     componentDidMount(){
-        // this.props.clearBusinesses();
-        // this.props.clearTransactions();
         this.props.getBusinesses(this.props.user).then(() => Object.values(this.props.businesses).forEach(business => {
             getPrice(business.ticker).then(res => this.props.updateBusiness(this.props.user.id, {price_now: res.latestPrice, id: business.id, user_id: this.props.user.id, purchase_price: business.purchase_price, net_shares: business.net_shares, ticker: business.ticker}))
         })).then(()=> this.props.getTransactions(this.props.user)).then(() => this.setState({loaded: true}))
        
         
     }
-  
 
-    // componentDidUpdate(prevState){
-    //     const num = Object.values(prevState.transactions).length;
-    //     if(num !== Object.values(this.props.transactions).length){
-    //         console.log('here')
-    //         if( num > Object.values(prevState.transactions).length){
-                
-    //         }else {
-
-    //         }
-    //     }
-    // }
 
     handleClickSell(e){
         e.preventDefault();
@@ -114,16 +100,10 @@ class PortfolioForm extends React.Component {
         e.preventDefault();
 
         let ticker = this.state.ticker;
-        // let amt = this.props.companies[ticker].market_cap;
         let quant = parseInt(this.state.qty);
         let user = this.props.user;
         if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
             return this.props.portfolioBuy();
-        // } else if(!this.props.companies[ticker]){
-        //     return this.props.portfolioTicker();
-        // } else if (user.money < (amt * quant).toFixed(2)){
-    
-        //     return this.props.portfolioMoney();
         } else {
            
             if(this.props.businesses[ticker]){
@@ -131,18 +111,22 @@ class PortfolioForm extends React.Component {
                 let curr_net_shares = this.props.businesses[ticker].net_shares;
                 let now_net_shares = quant + curr_net_shares;
                 let id = this.props.businesses[ticker].id
-       
-                getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}
-                    
-                    , () => this.props.createTransaction({
+                // gets the price
+                getPrice(ticker)
+                // then sets the state with the price for coming API calls
+                .then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol},
+                    // creates a transaction with the new price
+                    () => this.props.createTransaction({
                     'user_id': user.id, 
                     'company_ticker': ticker, 
                     'purchase_price': this.state.price, 
                     'net_shares': quant,
                     'buy': true
-                }) 
-                ))
-                .then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant })).then(() => this.props.updateBusiness(user.id, 
+                }))) 
+                // updates the user's money
+                .then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant }))
+                // updates the stock with the new total shares amount
+                .then(() => this.props.updateBusiness(user.id, 
                     {id: id, user_id: user.id, ticker: ticker, net_shares: now_net_shares, purchase_price: this.state.price, price_now: this.state.price}
                     
                     ))
@@ -151,16 +135,22 @@ class PortfolioForm extends React.Component {
 
             } else {
                 
-                  
-                    getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, () => this.props.createTransaction({
+                  // gets the price
+                    getPrice(ticker)
+                    // then sets the state with the price for coming API calls
+                    .then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, 
+                        // creates a transaction with the new price
+                        () => this.props.createTransaction({
                         'user_id': user.id, 
                         'company_ticker': ticker, 
                         'purchase_price': this.state.price, 
                         'net_shares': quant,
                         'buy': true
-                    })
-                    
-                    ), () => this.props.portfolioTicker()).then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant }))
+                    })), () => this.props.portfolioTicker())
+                    // updates the user's money
+                    .then( () => this.props.updateUser({id: user.id, money: user.money - this.state.price * quant }))
+
+                    // creates the stock in the portfolio 
                     .then(() => this.props.createBusiness(user.id, 
                         {user_id: user.id, ticker: ticker, net_shares: quant, purchase_price: this.state.price, price_now: this.state.price}
                         
@@ -193,7 +183,7 @@ class PortfolioForm extends React.Component {
         } else {
             businesses = Object.values(this.props.businesses).map( business => {
                 let count = business.price_now * business.net_shares
-                let percent = ((business.price_now / business.purchase_price) * 100 -100);
+                let percent = ((business.price_now / business.purchase_price) * 100 -100).toFixed(2);
                 total += count
                 if(business.price_now > business.purchase_price){
                     return (

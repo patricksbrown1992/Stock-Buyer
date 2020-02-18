@@ -12,7 +12,6 @@ class PortfolioForm extends React.Component {
     }
 
     componentDidMount(){
-        // this.props.clearTransactions()
         this.props.getTransactions(this.props.user).then(() => this.setState({loaded: true}))
        
     }
