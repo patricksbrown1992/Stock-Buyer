@@ -15,9 +15,18 @@ class PortfolioForm extends React.Component {
     }
 
     componentDidMount(){
-        this.props.getBusinesses(this.props.user).then(() => Object.values(this.props.businesses).forEach(business => {
-            getPrice(business.ticker).then(res => this.props.updateBusiness(this.props.user.id, {price_now: res.latestPrice, id: business.id, user_id: this.props.user.id, purchase_price: business.purchase_price, net_shares: business.net_shares, ticker: business.ticker}))
-        })).then(()=> this.props.getTransactions(this.props.user)).then(() => this.setState({loaded: true}))
+        // gets all stocks
+        this.props.getBusinesses(this.props.user)
+        // gets price for each stock
+        .then(() => Object.values(this.props.businesses).forEach(business => {
+            getPrice(business.ticker)
+        // update stock with new price
+        .then(res => this.props.updateBusiness(this.props.user.id, {price_now: res.latestPrice, id: business.id, user_id: this.props.user.id, purchase_price: business.purchase_price, net_shares: business.net_shares, ticker: business.ticker}))
+        }))
+        // get all the transactions
+        .then(()=> this.props.getTransactions(this.props.user))
+        // allow render
+        .then(() => this.setState({loaded: true}))
        
         
     }
@@ -28,12 +37,14 @@ class PortfolioForm extends React.Component {
         let ticker = this.state.ticker;
         let quant = parseInt(this.state.qty);
         let user = this.props.user;
-  
+        // reject if not an acceptable number
         if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
             return this.props.portfolioBuy();
+        // can only sell if you have the stock
         } else if(!this.props.businesses[ticker]){
           
             return this.props.portfolioSell()
+        // reject attempts to sell more stock than you have
         } else if(quant > this.props.businesses[ticker].net_shares){
            
             return this.props.portfolioMoneySell();
@@ -41,8 +52,9 @@ class PortfolioForm extends React.Component {
             let curr_net_shares = this.props.businesses[ticker].net_shares;
                 let now_net_shares = curr_net_shares - quant;
                 let id = this.props.businesses[ticker].id;
+            // if selling all stocks for a company
             if(now_net_shares == 0){
-                
+                // get price
                 getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}
                     
                     , () => this.props.createTransaction({
@@ -53,25 +65,29 @@ class PortfolioForm extends React.Component {
                     'buy': false
                 }) 
                 ))
-                .then( () => this.props.updateUser({id: user.id, money: user.money + this.state.price * quant })).then(() => this.props.deleteBusiness( 
+                // change user's money
+                .then( () => this.props.updateUser({id: user.id, money: user.money + this.state.price * quant }))
+                // delete stock because there are zero stocks
+                .then(() => this.props.deleteBusiness( 
                     {id: id, user_id: user.id, ticker: ticker, net_shares: 0, purchase_price: this.state.price, price_now: this.state.price}
                     
                     )) 
 
                     
             } else {
-                
-                getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}
-                    
-                    , () => this.props.createTransaction({
+                // get price
+                getPrice(ticker).then(ele => this.setState({price: ele.latestPrice, symbol: ele.symbol}, 
+                    () => this.props.createTransaction({
                     'user_id': user.id, 
                     'company_ticker': ticker, 
                     'purchase_price': this.state.price, 
                     'net_shares': quant,
                     'buy': false
-                }) 
-                ))
-                .then( () => this.props.updateUser({id: user.id, money: user.money + this.state.price * quant })).then(() => this.props.updateBusiness(user.id, 
+                })))
+                // change user's money
+                .then( () => this.props.updateUser({id: user.id, money: user.money + this.state.price * quant }))
+                // update stock total
+                .then(() => this.props.updateBusiness(user.id, 
                     {id: id, user_id: user.id, ticker: ticker, net_shares: now_net_shares, purchase_price: this.state.price, price_now: this.state.price}
                     
                     ))
@@ -102,10 +118,11 @@ class PortfolioForm extends React.Component {
         let ticker = this.state.ticker;
         let quant = parseInt(this.state.qty);
         let user = this.props.user;
+        // reject if not an acceptable number
         if(!Number.isInteger(quant) || this.state.qty.includes('.') || quant < 1 ){
             return this.props.portfolioBuy();
         } else {
-           
+        // if you already own some stock in that company
             if(this.props.businesses[ticker]){
                 
                 let curr_net_shares = this.props.businesses[ticker].net_shares;
@@ -168,6 +185,7 @@ class PortfolioForm extends React.Component {
   
        
         let businesses;
+        // portfolio total
         let total = 0;
        
         if(!this.state.loaded){
@@ -185,6 +203,7 @@ class PortfolioForm extends React.Component {
                 let count = business.price_now * business.net_shares
                 let percent = ((business.price_now / business.purchase_price) * 100 -100).toFixed(2);
                 total += count
+                // changes color based on performance
                 if(business.price_now > business.purchase_price){
                     return (
                         <li id='green' className= 'transaction-li' key={business.id}>
