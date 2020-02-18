@@ -63,8 +63,6 @@ class PortfolioForm extends React.Component {
                     'user_id': user.id, 
                     'company_ticker': ticker, 
                     'purchase_price': this.state.price, 
-                    'average_price': this.state.price, 
-                    'purchase_shares': quant,
                     'net_shares': quant,
                     'buy': false
                 }) 
@@ -83,8 +81,6 @@ class PortfolioForm extends React.Component {
                     'user_id': user.id, 
                     'company_ticker': ticker, 
                     'purchase_price': this.state.price, 
-                    'average_price': this.state.price, 
-                    'purchase_shares': quant,
                     'net_shares': quant,
                     'buy': false
                 }) 
@@ -142,8 +138,6 @@ class PortfolioForm extends React.Component {
                     'user_id': user.id, 
                     'company_ticker': ticker, 
                     'purchase_price': this.state.price, 
-                    'average_price': this.state.price, 
-                    'purchase_shares': quant,
                     'net_shares': quant,
                     'buy': true
                 }) 
@@ -162,8 +156,6 @@ class PortfolioForm extends React.Component {
                         'user_id': user.id, 
                         'company_ticker': ticker, 
                         'purchase_price': this.state.price, 
-                        'average_price': this.state.price, 
-                        'purchase_shares': quant,
                         'net_shares': quant,
                         'buy': true
                     })

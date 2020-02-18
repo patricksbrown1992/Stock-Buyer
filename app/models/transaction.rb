@@ -1,13 +1,12 @@
 class Transaction < ApplicationRecord
-    validates :purchase_price, :company_ticker, :purchase_shares, :average_price, :net_shares, presence: true
+    validates :purchase_price, :company_ticker, :net_shares, presence: true
     validates :purchase_price, numericality: { greater_than: 0 }
-    validates :net_shares, :average_price, numericality: { greater_than_or_equal_to: 0 }
     validate :less_than_money
     # validate :whole_num
 
     def less_than_money
         user = User.find_by(id: self.user_id)
-        unless user.money >= self.purchase_price * self.purchase_shares
+        unless user.money >= self.purchase_price * self.net_shares
             errors[:Not] << " enough money"
         end
 
