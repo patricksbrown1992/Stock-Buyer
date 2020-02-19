@@ -12,7 +12,7 @@ import {getPrice, getNews} from '../../util/iexUtil';
 const msp = state => {
 
     return {
-    errors: Object.values(state.errors),
+    errors: state.errors,
     user: state.entities.user[state.session.id], 
     businesses: state.entities.businesses,
     transactions: state.entities.transactions
