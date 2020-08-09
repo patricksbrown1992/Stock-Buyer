@@ -264,7 +264,7 @@ class PortfolioForm extends React.Component {
                 <div className='portfolio-nav-bar'>
                     <button className='logout-button' onClick={this.handleSubmit} type='submit'>Sign Out</button>
                     <Link to='/transactions'>Transactions</Link>
-                    <a href="https://patricksbrown1992.github.io/profile-site/" target="_blank">Patrick's Profile Site</a>
+                    <a href="https://patricksbrown1992.github.io/portfolio/" target="_blank">Patrick's Profile Site</a>
                     <a href="https://www.linkedin.com/in/patricksbrown1992/" target="_blank">LinkedIn</a>
                     <a href="https://github.com/patricksbrown1992" target="_blank">Github</a>
 
