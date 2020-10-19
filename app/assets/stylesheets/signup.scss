@@ -1,65 +1,58 @@
 .sign-up-form {
-    margin-top: 2.5%;
-    margin-bottom: 2.5%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    border: 2px solid #21ce99;
-    height: 65%;
-    z-index: 2;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  border: 2px solid #21ce99;
+  height: 65%;
+  z-index: 2;
 }
-
-
-
 
 .sign-up-top {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    height: 15%;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 15%;
+  align-items: center;
 }
-
 
 .sign-up-top h1,
 h3 {
-
-    color: #136b54;
+  color: #136b54;
 }
 
 .sign-up-middle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    // justify-content: space-evenly;
-    width: 75%;
-    height: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: space-evenly;
+  width: 75%;
+  height: 95%;
 }
 
 .sign-up-bottom {
-     // padding-top: 6%;
-    // margin-bottom: 38%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    align-items: center;
-    height: 12.5%;
-
+  // padding-top: 6%;
+  // margin-bottom: 38%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  align-items: center;
+  height: 12.5%;
 }
 
 .sign-up-bottom h3 {
-    color: #136b54;
-    font-weight: 600;
-    font-size: 22px;
+  color: #136b54;
+  font-weight: 600;
+  font-size: 22px;
 }
 
-
 .sign-up-stockbuyer {
-    font-weight: bold;
-    font-size: 40px;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 // .sign-up-form h3 {
@@ -74,101 +67,96 @@ h3 {
 // }
 
 .sign-up-form li {
-    list-style: none;
-    color: red;
-    font-weight: 600;
-    font-size: 18px;
-    font-family: sans-serif;
+  list-style: none;
+  color: red;
+  font-weight: 600;
+  font-size: 18px;
+  font-family: sans-serif;
 }
 
 .sign-up-form .enter-username button:hover {
-    color: honeydew;
-    cursor: pointer;
-    background-color: #136b54;
-    outline: none;
+  color: honeydew;
+  cursor: pointer;
+  background-color: #136b54;
+  outline: none;
 }
-
 
 .enter-user-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .enter-username {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .enter-username button {
-    background-color: #21ce99;
-    width: 65%;
-    line-height: 375%;
-    border-radius: 12px;
-    color: honeydew;
-    outline: none;
+  background-color: #21ce99;
+  width: 65%;
+  line-height: 375%;
+  border-radius: 12px;
+  color: honeydew;
+  outline: none;
 }
 
 .sign-up-email-input {
-
-    margin-bottom: 1%;
-    padding-left: 5%;
-    padding-right: 5%;
-    outline: none;
-    width: 85%;
-    height: 40px;
-    background-color: #136b54;
-    border-radius: 10px;
-    border: 1px solid #e6e6e6;
-    font-size: 16px;
-    color: #21ce99;
-
+  margin-bottom: 1%;
+  padding-left: 5%;
+  padding-right: 5%;
+  outline: none;
+  width: 85%;
+  height: 40px;
+  background-color: #136b54;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6;
+  font-size: 16px;
+  color: #21ce99;
 }
 
-
 .redirect-to-login-signup a {
-    color: #21ce99;
-    font-weight: 600;
-    font-size: 18px;
-   
+  color: #21ce99;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .redirect-to-login-signup a:hover {
-    color: #136b54;
-    cursor: pointer;
+  color: #136b54;
+  cursor: pointer;
 }
 
 .demo-form {
-    width: 100%;
-    height: 10%;
-    margin-bottom: 10%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  height: 10%;
+  margin-bottom: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .demo-button {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .demo-button button {
-    background-color: #21ce99;
-    width: 45%;
-    line-height: 250%;
-    border-radius: 12px;
-    color: honeydew;
-    outline: none;
-    cursor: pointer;
+  background-color: #21ce99;
+  width: 45%;
+  line-height: 250%;
+  border-radius: 12px;
+  color: honeydew;
+  outline: none;
+  cursor: pointer;
 }
 
 .demo-button button:hover {
-    color: honeydew;
-    cursor: pointer;
-    background-color: #136b54;
-    outline: none;
+  color: honeydew;
+  cursor: pointer;
+  background-color: #136b54;
+  outline: none;
 }

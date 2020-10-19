@@ -1,77 +1,69 @@
 .outerdiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
-
-
 
 .log-in-form {
-    margin-top: 2.5%;
-    margin-bottom: 2.5%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 40%;
-    border: 2px solid #21ce99;
-    height: 55%;
-    z-index: 2;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  border: 2px solid #21ce99;
+  height: 55%;
+  z-index: 2;
 }
-
-
-
 
 .log-in-top {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    height: 30%;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 30%;
+  align-items: center;
 }
 
-
-.log-in-top h1, h3 {
-
-    color: #136b54;
+.log-in-top h1,
+h3 {
+  color: #136b54;
 }
 
 .log-in-middle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 75%;
-    height: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+  height: 45%;
 }
 
 .log-in-bottom {
-    // padding-top: 6%;
-    // margin-bottom: 38%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    align-items: center;
-    height: 18.5%;
-
+  // padding-top: 6%;
+  // margin-bottom: 38%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  align-items: center;
+  height: 18.5%;
 }
 .log-in-bottom h3 {
-    color: #136b54;
-    font-weight: 600;
-    font-size: 22px;
+  color: #136b54;
+  font-weight: 600;
+  font-size: 22px;
 }
 
-
 .log-in-stockbuyer {
-    font-weight: bold;
-    font-size: 40px;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 // .log-in-form h3 {
@@ -86,59 +78,52 @@
 // }
 
 .log-in-form li {
-    list-style: none;
-    color: red;
-    font-weight: 600;
-    font-size: 18px;
-    font-family: sans-serif;
+  list-style: none;
+  color: red;
+  font-weight: 600;
+  font-size: 18px;
+  font-family: sans-serif;
 }
 
 .log-in-form .enter-username button:hover {
-    color: honeydew;
-    cursor: pointer;
-    background-color: #136b54;
-    outline: none;
+  color: honeydew;
+  cursor: pointer;
+  background-color: #136b54;
+  outline: none;
 }
 
 .enter-username button {
-    background-color: #21ce99;
-    width: 150px;
-    line-height: 150%;
-    border-radius: 9px;
-    color: honeydew;
-    outline: none;
-    color: #21ce99;
+  background-color: #21ce99;
+  width: 150px;
+  line-height: 150%;
+  border-radius: 9px;
+  color: honeydew;
+  outline: none;
+  color: #21ce99;
 }
 
 .log-in-email-input {
-
-    margin-bottom: 1%;
-    padding-left: 5%;
-    padding-right: 5%;
-    outline: none;
-    width: 75%;
-    height: 20px;
-    background-color: #21ce99;
-    border-radius: 10px;
-    border: 1px solid #136b54;
-    font-size: 16px;
-    color: #136b54;
-
+  margin-bottom: 1%;
+  padding-left: 5%;
+  padding-right: 5%;
+  outline: none;
+  width: 75%;
+  height: 20px;
+  background-color: #21ce99;
+  border-radius: 10px;
+  border: 1px solid #136b54;
+  font-size: 16px;
+  color: #136b54;
 }
 
-
 .redirect-to-login-signup a {
-    color: #21ce99;
-    font-weight: 600;
-    font-size: 18px;
-    // margin-bottom: -200px;
+  color: #21ce99;
+  font-weight: 600;
+  font-size: 18px;
+  // margin-bottom: -200px;
 }
 
 .redirect-to-login-signup a:hover {
-    color: #136b54;
-    cursor: pointer;
+  color: #136b54;
+  cursor: pointer;
 }
-
-
-
-
