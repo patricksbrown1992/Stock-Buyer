@@ -1,19 +1,17 @@
 export const getTransactions = (user) => {
- 
-    return $.ajax({
-        method: "GET",
-        url: "api/transactions",
-        data: {
-            user_id: user.id,
-        }
-    })
-}
+  return $.ajax({
+    method: "GET",
+    url: "api/transactions",
+    data: {
+      user_id: user.id,
+    },
+  });
+};
 
-export const createTransaction = transaction => {
-    
-    return $.ajax({
-        method: "POST",
-        url: "api/transactions",
-        data: {transaction}
-    })
-}
+export const createTransaction = (transaction) => {
+  return $.ajax({
+    method: "POST",
+    url: "api/transactions",
+    data: { transaction },
+  });
+};
