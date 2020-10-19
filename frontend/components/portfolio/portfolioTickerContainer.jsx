@@ -1,16 +1,14 @@
-import PortfolioTickerForm from './portfolioTickerForm';
-import { connect } from 'react-redux';
+import PortfolioTickerForm from "./portfolioTickerForm";
+import { connect } from "react-redux";
 import { closeModal } from "../../actions/modalActions";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
-
-const msp = state => ({
-    user: state.entities.user
+const msp = (state) => ({
+  user: state.entities.user,
 });
 
-const mdp = dispatch => ({
-    closeModal: () => dispatch(closeModal()),
- 
+const mdp = (dispatch) => ({
+  closeModal: () => dispatch(closeModal()),
 });
 
 export default withRouter(connect(msp, mdp)(PortfolioTickerForm));
