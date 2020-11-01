@@ -19,6 +19,7 @@ class PortfolioForm extends React.Component {
     this.handleClickSell = this.handleClickSell.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.handleTriage = this.handleTriage.bind(this);
+    this.handleSellTriage = this.handleSellTriage.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +69,14 @@ class PortfolioForm extends React.Component {
       if (now_net_shares == 0) {
         // get price
         this.handleCheck(ticker)
+          .then(() => this.handleSellTriage())
+          // change user's money
+          .then((money) => {
+            return this.props.updateUser({
+              id: user.id,
+              money: user.money + parseFloat(money),
+            });
+          })
           // creates transaction
           .then(() =>
             this.props.createTransaction({
@@ -78,13 +87,7 @@ class PortfolioForm extends React.Component {
               buy: false,
             })
           )
-          // change user's money
-          .then(() =>
-            this.props.updateUser({
-              id: user.id,
-              money: user.money + this.state.cost,
-            })
-          )
+
           // delete stock because there are zero stocks
           .then(() =>
             this.props.deleteBusiness({
@@ -99,6 +102,14 @@ class PortfolioForm extends React.Component {
       } else {
         // get price
         this.handleCheck(ticker)
+          .then(() => this.handleSellTriage())
+          // changes the user's money
+          .then((money) => {
+            return this.props.updateUser({
+              id: user.id,
+              money: user.money + parseFloat(money),
+            });
+          })
           // creates transaction
           .then(() =>
             this.props.createTransaction({
@@ -109,13 +120,7 @@ class PortfolioForm extends React.Component {
               buy: false,
             })
           )
-          // change user's money
-          .then(() =>
-            this.props.updateUser({
-              id: user.id,
-              money: user.money + this.state.cost,
-            })
-          )
+
           // update stock total
           .then(() =>
             this.props.updateBusiness(user.id, {
@@ -134,6 +139,14 @@ class PortfolioForm extends React.Component {
   handleTriage() {
     if (parseInt(this.state.cost) > this.props.user.money) {
       return this.props.portfolioMoney();
+    }
+  }
+
+  handleSellTriage() {
+    if (parseInt(this.state.cost) <= 0) {
+      return this.props.portfolioTicker();
+    } else {
+      return this.state.cost;
     }
   }
 
@@ -225,13 +238,6 @@ class PortfolioForm extends React.Component {
             buy: true,
           })
         )
-        // updates the user's money
-        .then(() =>
-          this.props.updateUser({
-            id: user.id,
-            money: user.money - this.state.cost,
-          })
-        )
 
         // creates the stock in the portfolio
         .then(() =>
@@ -241,6 +247,12 @@ class PortfolioForm extends React.Component {
             net_shares: quant,
             purchase_price: this.state.price,
             price_now: this.state.price,
+          })
+        ) // updates the user's money
+        .then(() =>
+          this.props.updateUser({
+            id: user.id,
+            money: user.money - this.state.cost,
           })
         );
     }
