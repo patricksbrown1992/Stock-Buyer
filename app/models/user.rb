@@ -10,12 +10,13 @@ class User < ApplicationRecord
     has_many :transactions
     has_many :businesses
 
-
     def positve_money
         unless self.money >= 0
             errors[:Not] << " enough money"
         end
     end
+
+ 
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)
         return nil if user.nil?
