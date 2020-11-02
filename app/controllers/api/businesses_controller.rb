@@ -16,7 +16,9 @@ class Api::BusinessesController < ApplicationController
     end
 
     def create
+        
         @business = Business.create(business_params)
+
         if @business.save 
             render json: @business, status: 200
         else
@@ -26,18 +28,19 @@ class Api::BusinessesController < ApplicationController
 
     def update
         @business = Business.find_by(id: params[:id])
+        
         if @business.update(business_params)
-          
+            
             render json: @business, status: 200
         else
-           
+            
             render json: @business.errors.full_messages, status: 422
         end
     end
 
     def destroy
         @business = Business.find_by(id: params[:id])
-      
+       
         if @business.destroy
             render json: @business, status: 200
         else
@@ -47,6 +50,7 @@ class Api::BusinessesController < ApplicationController
 
     private
     def business_params
+        
         params.require(:business).permit(:ticker, :price_now, :purchase_price, :net_shares, :user_id)
     end
 end 
